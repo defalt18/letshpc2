@@ -1,0 +1,56 @@
+.OS{
+    display: flex;
+    gap: 20px;
+    color: white;
+}
+
+.open{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mannual_points > li{
+    margin: 20px 5%;
+}
+
+#mac{
+    display: none;
+    min-height: 100vh;
+    color: black;
+}
+
+#windows{
+    display: none;
+    min-height: 100vh;
+    background: rgb(23,23,23);
+    color: white;
+}
+
+#linux{
+    display: none;
+    min-height: 100vh;
+    background: #551034;
+    color: white;
+}
+.demo{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.box{
+    height: 50%;
+    border: 1px solid black;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+.mannual_data{
+    width: 50%;
+}

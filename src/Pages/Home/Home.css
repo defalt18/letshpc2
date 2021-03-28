@@ -13,22 +13,38 @@
 .mannual_points > li{
     margin: 20px 5%;
 }
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(90%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+.heading > .back__but__title{
+    display: none;
+}
+
+.heading:hover .back__but__title {
+    display: flex;
+    animation: 200ms ease-out 0s 1 slideInFromLeft;
+}
 
 #mac{
-    display: none;
+    display: flex;
     min-height: 100vh;
     color: black;
 }
 
 #windows{
-    display: none;
+    display: flex;
     min-height: 100vh;
     background: rgb(23,23,23);
     color: white;
 }
 
 #linux{
-    display: none;
+    display: flex;
     min-height: 100vh;
     background: #551034;
     color: white;

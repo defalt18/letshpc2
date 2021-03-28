@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 // import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({ OS }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(true);
 
@@ -47,7 +48,7 @@ export default function RecipeReviewCard() {
     <Card className={classes.root}>
       <CardHeader
         action={
-            <IconButton
+          <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
@@ -59,28 +60,44 @@ export default function RecipeReviewCard() {
           </IconButton>
         }
         title="Running instructions"
-        subheader="On a Mac"
+        subheader={OS==="mac"?"On a Mac" : "On Linux"}
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-            <p style={{margin:'10px 0'}}>Make a directory</p>
-            <div className="code">
+          <p style={{ margin: '10px 0' }}>Make a directory (Optional)</p>
+          <div className="code">
+            {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
             $ mkdir parallel_programs<br></br>
             $ cd parallel_programs
             </div>
-            <p style={{margin:'10px 0'}}>Copy the above code and write it in vi editor</p>
-            <div className="code">
-            $ vi topic1.c
+          <p style={{ margin: '10px 0' }}>Download the file from the source*</p>
+          <div className="code">
+            {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
+            $ curl "https://firebasestorage.googleapis.com/v0/b/letshpc2.appspot.com/o/topic1.c?alt=media&token=b3b5c202-7f3a-4359-b7b9-f352ceca5ea2" -o topic1.c
             </div>
-            <p style={{margin:'10px 0'}}>Save the program inside vi editor</p>
-            <div className="code">
-            $ :wq
+          <p style={{ margin: '10px 0' }}>To see and change the code as per your liking open the code using (Optional)</p>
+          <div className="code">
+            {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
+            $ nano topic1.c
             </div>
-            <p style={{margin:'10px 0'}}>Run the program</p>
-            <div className="code">
-            $ clang -Xpreprocessor -fopenmp -lomp topic1.c<br></br>
-            $ ./a.out
-            </div>
+          <p style={{ margin: '10px 0' }}>Run the program*</p>
+          <div className="code">
+            {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
+            {
+              OS === "mac" ? (
+                <>
+                  $ clang -Xpreprocessor -fopenmp -lomp topic1.c<br></br>
+                  $ ./a.out
+                </>
+              ) : (
+                <>
+                  $ gcc -otopic1 -fopenmp topic1.c<br></br>
+                  $ ./topic1
+                </>
+            )
+            }
+
+          </div>
         </CardContent>
       </Collapse>
     </Card>

@@ -17,6 +17,7 @@
     padding: 10px;
     min-width: 90%;
     font-size: large;
+    position: relative;
     overflow: auto;
     background: rgb(40, 47, 63);
     color: lightcyan;
@@ -31,6 +32,9 @@
     background: rgb(40, 47, 63);
     color: lightcyan;
     font-family: monospace;
+}
+.intructions > .MuiButton-root {
+    background: yellow;
 }
 .form_details{
     padding: 20px;

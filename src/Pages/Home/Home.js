@@ -5,7 +5,7 @@ import macos from './MacOS_logo.png'
 import winlogo from './windows-logo-social.png'
 import linuxlogo from './linux.png'
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+// import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import letshpc from '../../Letshpc.png'
 import SSH_Modal from '../../Components/Modal/SSH_modal'
 import Mac_tut from './Mac_tut.gif'
@@ -18,7 +18,7 @@ function Home() {
     }
 
     return (
-        <div>
+        <div style={{overflowX:'hidden'}}>
             <div
                 style=
                 {{
@@ -78,11 +78,11 @@ function Home() {
                 <div className="mannual_data">
                     <h1 style={{ padding: '3% 5%', paddingTop: '3%', display: 'flex', gap: '20px', alignItems: 'center' }}>
                         <img src={macos} alt="" width="50px" height="50px" />
-                        <p>Mac OS Systems</p>
+                        <p>MacOS Systems</p>
                     </h1>
                     <div className="open">
                         <h2 style={{ padding: '2% 5%' }}>Setup Steps</h2>
-                        <SSH_Modal textcolor="white" background="rgb(0,150,255)"/>
+                        <SSH_Modal textcolor="white" background="rgb(0,150,255)" />
                     </div>
                     <hr></hr>
                     <p>
@@ -94,24 +94,24 @@ function Home() {
                                 Check "Remote Login" in the list of services on the left.
                             </li>
                             <li>
-                                Note down the Username and IP Address 
-                                <p style={{margin:'10px 0'}}>It shall be displayed in this fashion</p>
+                                Note down the Username and IP Address
+                                <p style={{ margin: '10px 0' }}>It shall be displayed in this fashion</p>
                                 <b>username@IP</b>
-                                <p style={{margin:'10px 0'}}>For e.g. mark@192.168.0.145</p>
+                                <p style={{ margin: '10px 0' }}>For e.g. mark@192.168.0.145</p>
                             </li>
                             <li>
-                                You are good to go 👍🏽 
-                                <p style={{margin:'10px 0'}}>
-                                Just hit the <b>Open SSH</b> button on the top of this manual
+                                You are good to go 👍🏽
+                                <p style={{ margin: '10px 0' }}>
+                                    Just hit the <b>Open SSH</b> button on the top of this manual
                                 </p>
                             </li>
                         </ol>
-                        <p style={{margin:'50px 10%'}}><i>Note: The latest M1 chips are not supported yet!</i></p>
+                        <p style={{ margin: '50px 10%' }}><i>Note: The latest M1 chips are not supported yet!</i></p>
                     </p>
                 </div>
                 <div className="demo">
                     <h1>Video Tutorial</h1>
-                    <div className="box" style={{background:`url(${Mac_tut})`, backgroundPosition:'center', border:'none'}}></div>
+                    <div className="box" style={{ background: `url(${Mac_tut})`, backgroundPosition: 'center', border: 'none' }}></div>
                     <div>
                         <p>Make sure any firewalls aren't obstructing the network</p>
                     </div>
@@ -125,7 +125,7 @@ function Home() {
                     </h1>
                     <div className="open">
                         <h2 style={{ padding: '2% 5%' }}>Setup Steps</h2>
-                        <SSH_Modal textcolor="black" background="white"/>
+                        <SSH_Modal textcolor="black" background="white" />
                     </div>
                     <hr></hr>
                     <p>
@@ -175,7 +175,7 @@ function Home() {
                         {/* <Link to="/ssh" style={{ textDecoration: "none" }}>
                             <Button style={{ textTransform: 'capitalize', backgroundColor: 'orange', color: 'white', fontWeight: 'bold', padding: '7px', borderRadius: '7px' }}>Open SSH</Button>
                         </Link> */}
-                        <SSH_Modal textcolor="white" background="orange"/>
+                        <SSH_Modal textcolor="white" background="orange" />
                     </div>
                     <hr></hr>
                     <p>

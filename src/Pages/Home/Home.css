@@ -42,7 +42,7 @@
     gap: 20px;
 }
 .box{
-    height: 50%;
+    height: 65%;
     border: 1px solid black;
     width: 80%;
     display: flex;
@@ -50,6 +50,7 @@
     justify-content: center;
     text-align: center;
     flex-direction: column;
+    box-shadow: 0px 0px 8px 0px black;
 }
 .mannual_data{
     width: 50%;

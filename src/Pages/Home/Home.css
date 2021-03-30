@@ -13,6 +13,7 @@
 .mannual_points > li{
     margin: 20px 5%;
 }
+
 @keyframes slideInFromLeft {
     0% {
       transform: translateX(90%);
@@ -20,7 +21,16 @@
     100% {
       transform: translateX(0);
     }
-  }
+}
+@keyframes slrt {
+    0% {
+      transform: translateX(10%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+}
+
 .heading > .back__but__title{
     display: none;
 }
@@ -28,6 +38,10 @@
 .heading:hover .back__but__title {
     display: flex;
     animation: 200ms ease-out 0s 1 slideInFromLeft;
+}
+
+#os__head:hover{
+    animation: 200ms ease-out 0s 1 slrt;
 }
 
 #mac{
@@ -71,3 +85,46 @@
 .mannual_data{
     width: 50%;
 }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.concepts{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    width: calc(100vw - 60px);
+}
+
+.concept__box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #1c1f24;
+    height: 250px;
+    padding: 20px;
+    color: lightgray;
+}
+
+.arrow >a { color: white; text-decoration: none; }
+
+.arrow {
+  text-align: center;
+  margin: 10px 0;
+}
+.bounce {
+  -moz-animation: bounce 2s infinite;
+  -webkit-animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
+}
+

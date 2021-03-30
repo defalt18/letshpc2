@@ -2,6 +2,8 @@ import React from 'react'
 import Button from '@material-ui/core/Button';
 import './Home.css'
 import macos from './MacOS_logo.png'
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 import winlogo from './windows-logo-social.png'
 import linuxlogo from './linux.png'
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
@@ -9,16 +11,49 @@ import letshpc from '../../Letshpc.png'
 import SSH_Modal from '../../Components/Modal/SSH_modal'
 import Mac_tut from './Mac_tut.gif'
 import Linux_tut from './Linux_tut.mp4'
+import Linux from './linux.svg'
+import windows from './windows.svg'
+import AppleIcon from '@material-ui/icons/Apple';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ReactPlayer from 'react-player'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Concept from './Concept Matter/Concept'
 
-function Home() {
+export function DisabledTabs({ func , func2}) {
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        func(newValue);
+        if(newValue===1) func2(-1);
+        setValue(newValue);
+    };
+
+    return (
+        <Paper square style={{ background: 'transparent', color: 'white', position: 'absolute', top: "10%", left: "50%", transform: "translate(-50%,0)", width: 'auto' }}>
+            <Tabs TabIndicatorProps={{ style: { background: 'white' } }}
+                value={value}
+                onChange={handleChange}
+                style={{ color: 'white' }}
+            >
+                <Tab label="SSH" />
+                <Tab label="Tutorials" />
+            </Tabs>
+        </Paper>
+    );
+}
+
+export default function Home() {
 
     const [win, setwin] = React.useState(-1);
+    const [tut, setut] = React.useState(0);
 
     return (
         <div style={{ overflowX: 'hidden' }}>
+            <DisabledTabs func={setut} func2={setwin}/>
             <div
                 style=
                 {{
@@ -31,49 +66,57 @@ function Home() {
                     background: "black", color: "white",
                 }}>
                 <img src={letshpc} alt="Lets HPC 2.0" height="200px" width="200px" />
-                <h1>Choose Your Operating System</h1>
-                <div className="OS">
-                    <Button
-                        href="/#mac"
-                        onClick={() => { setwin(1); }}
-                        style={{
-                            textTransform: 'capitalize',
-                            border: 'none',
-                            fontSize: 'large',
-                            padding: '5px',
-                            width: '10vw',
-                            background: 'linear-gradient(180deg, white, #fcfcfc, #f5f5f5)'
-                        }} >
-                        Mac OS
-                    </Button>
-                    <Button
-                        href="/#windows"
-                        onClick={() => { setwin(2); }}
-                        style={{
-                            textTransform: 'capitalize',
-                            border: 'none',
-                            fontSize: 'large',
-                            padding: '5px',
-                            width: '10vw',
-                            background: 'linear-gradient(180deg, white, #fcfcfc, #f5f5f5)'
-                        }}>
-                        Windows
-                    </Button>
-                    <Button
-                        href="/#linux"
-                        onClick={() => { setwin(3); }}
-                        style={{
-                            textTransform: 'capitalize',
-                            border: 'none',
-                            fontSize: 'large',
-                            padding: '5px',
-                            width: '10vw',
-                            background: 'linear-gradient(180deg, white, #fcfcfc, #f5f5f5)'
-                        }}>
-                        Linux
-                    </Button>
-                </div>
-            </div>
+                {
+                    tut === 1 ? (<>
+                    <h1>Tutorials</h1>
+                    <p style={{textAlign:'center',marginBottom:'10px'}}>A couple of tutorials based on the elementary concepts of HPC<br/> to build a greater
+                    understanding about the subject.</p>
+                    <div class="arrow bounce">
+                        <a href="#tut"><ArrowDownwardIcon fontSize="large"/></a>
+                    </div>
+                    </>) : (<>
+
+                        <h1>Choose Your Operating System</h1>
+                        <ButtonGroup variant="contained" style={{ color: 'black' }} >
+                            <Button href="/#mac" onClick={() => { setwin(1); }} style={{
+                                textTransform: 'capitalize',
+                                fontSize: 'large',
+                                width: '10vw',
+                                color: 'white',
+                                background: 'transparent'
+                            }}
+                                startIcon={<AppleIcon
+                                    style={{ fontSize: '35px' }}
+                                />}
+                            >
+                                Mac OS
+                            </Button>
+                            <Button href="/#windows" onClick={() => { setwin(2); }} style={{
+                                textTransform: 'capitalize',
+                                color: 'white',
+                                fontSize: 'large',
+                                width: '13vw',
+                                background: 'transparent'
+                            }} startIcon={<img src={windows}
+                                height="35px"
+                            />}>
+                                Windows
+                            </Button>
+                            <Button href="/#linux" onClick={() => { setwin(3); }} style={{
+                                textTransform: 'capitalize',
+                                color: 'white',
+                                fontSize: 'large',
+                                width: '10vw',
+                                background: 'transparent'
+                            }} startIcon={<img src={Linux}
+                                height="35px"
+                            />}>
+                                Linux
+                            </Button>
+                        </ButtonGroup>
+                    </>)
+                }
+            </div >
             {
                 win === 1 ? (<>
                     <div id="mac">
@@ -219,9 +262,31 @@ function Home() {
                         </div>
                     </div></>) : (<></>)
             }
+            {
+                tut?(
+                <div id='tut' style={{
+                    minHeight:'100vh', width:'100vw', overflow:'auto',
+                    background:'#22272d', padding:'30px', color:'white'
+                }}>
+                <h1>Tutorials</h1>
+                <h2 style={{margin:'40px 0' ,display:'flex',alignItems:"center",gap:'10px'}}><LibraryBooksIcon fontSize="large"/><p>Concepts</p></h2>
+                <div className="concepts">
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                    <Concept />
+                </div>
+                </div>
+                ):(<></>)
+            }
 
-        </div>
+        </div >
     )
 }
 
-export default Home

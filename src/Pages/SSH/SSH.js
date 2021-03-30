@@ -7,7 +7,7 @@ import { IconButton } from '@material-ui/core';
 
 function SSH(props) {
 
-    let string = "chrome-extension://iodihamcpbpeioajjeobimgagajmlibd/html/nassh.html#" + props.match.params.username.toString() + "@" + props.match.params.IP.toString();
+    let string = "chrome-extension://iodihamcpbpeioajjeobimgagajmlibd/html/nassh.html#" + props.match.params.username.toString() + "@127.0.0.1";
     return (
         <div style={{ display: 'flex', height: '100vh', minWidth: '100vw', overflow: 'auto' }}>
             <div className="intructions">

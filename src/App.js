@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/ssh/:OS/:username/:IP' component={SSH} />
+          <Route exact path='/ssh/:OS/:username' component={SSH} />
           <Route exact path='/tutorials' component={Tutorial} />
         </Switch>
       </Router>

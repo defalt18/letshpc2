@@ -21,7 +21,7 @@ export default function SSH_modal({ textcolor, background , OS}) {
     const [open, setOpen] = React.useState(false);
 
     const [username, setUsername] = React.useState("");
-    const [IP, setIP] = React.useState("");
+    // const [IP, setIP] = React.useState("");
 
     const handleOpen = () => {
         setOpen(true);
@@ -48,11 +48,11 @@ export default function SSH_modal({ textcolor, background , OS}) {
             >
                 <Fade in={open}>
                     <div className="form_details">
-                        <h3>Enter Username</h3>
+                        <h3>Enter Your Username</h3>
                         <TextField value={username} onChange={(e) => { setUsername(e.target.value) }} id="outlined-search" label="Username" variant="outlined" />
-                        <h3>Enter Local IP Address</h3>
-                        <TextField value={IP} onChange={(e) => { setIP(e.target.value) }} id="outlined-search" label="Local IP Address" variant="outlined" />
-                        <Link to={{pathname: `/ssh/${OS}/${username}/${IP}`}} style={{textDecoration:'none'}}>
+                        {/* <h3>Enter Local IP Address</h3> */}
+                        {/* <TextField value={IP} onChange={(e) => { setIP(e.target.value) }} id="outlined-search" label="Local IP Address" variant="outlined" /> */}
+                        <Link to={{pathname: `/ssh/${OS}/${username}`}} style={{textDecoration:'none'}}>
                             <Button variant="contained" color="primary">
                                 Jump to SSH
                             </Button>

@@ -10,7 +10,7 @@ import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import letshpc from '../../Letshpc.png'
 import SSH_Modal from '../../Components/Modal/SSH_modal'
 import Mac_tut from './Mac_tut.gif'
-import Linux_tut from './Linux_tut.mp4'
+import Linux_tut from './Linux_tut2.mp4'
 import Linux from './linux.svg'
 import windows from './windows.svg'
 import AppleIcon from '@material-ui/icons/Apple';
@@ -23,12 +23,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Concept from './Concept Matter/Concept'
 
-export function DisabledTabs({ func , func2}) {
+export function DisabledTabs({ func, func2 }) {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         func(newValue);
-        if(newValue===1) func2(-1);
+        if (newValue === 1) func2(-1);
         setValue(newValue);
     };
 
@@ -53,7 +53,7 @@ export default function Home() {
 
     return (
         <div style={{ overflowX: 'hidden' }}>
-            <DisabledTabs func={setut} func2={setwin}/>
+            <DisabledTabs func={setut} func2={setwin} />
             <div
                 style=
                 {{
@@ -68,12 +68,12 @@ export default function Home() {
                 <img src={letshpc} alt="Lets HPC 2.0" height="200px" width="200px" />
                 {
                     tut === 1 ? (<>
-                    <h1>Tutorials</h1>
-                    <p style={{textAlign:'center',marginBottom:'10px'}}>A couple of tutorials based on the elementary concepts of HPC<br/> to build a greater
+                        <h1>Tutorials</h1>
+                        <p style={{ textAlign: 'center', marginBottom: '10px' }}>A couple of tutorials based on the elementary concepts of HPC<br /> to build a greater
                     understanding about the subject.</p>
-                    <div class="arrow bounce">
-                        <a href="#tut"><ArrowDownwardIcon fontSize="large"/></a>
-                    </div>
+                        <div class="arrow bounce">
+                            <a href="#tut"><ArrowDownwardIcon fontSize="large" /></a>
+                        </div>
                     </>) : (<>
 
                         <h1>Choose Your Operating System</h1>
@@ -140,7 +140,7 @@ export default function Home() {
                                         Check "Remote Login" in the list of services on the left.
                             </li>
                                     <li>
-                                        Note down the Username and IP Address
+                                        Note down the Username
                                 <p style={{ margin: '10px 0' }}>It shall be displayed in this fashion</p>
                                         <b>username@IP</b>
                                         <p style={{ margin: '10px 0' }}>For e.g. mark@192.168.0.145</p>
@@ -191,7 +191,7 @@ export default function Home() {
                             </li>
                                     <li>
                                         After installation, open up Powershell and type in
-                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>StartService sshd</p>
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Start-Service sshd</p>
                                     </li>
                                     <li>
                                         You are good to go 👍🏽
@@ -239,12 +239,13 @@ export default function Home() {
                                 <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>sudo systemctl status ssh</p>
                                         <p style={{ margin: '10px 0' }}>it should say <b>"active(running)"</b></p>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         Now to find your ip. Type in the following command and check the address under inet6 (not 127.0.0.1)
                                 <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>ifconfig -a</p>
                                     </li>
+                                */}
                                     <li>
-                                        Note down your IP and username
+                                        Note down your username mentioned on the start of any terminal command
                             </li>
                                     <li>
                                         You are good to go 👍🏽
@@ -256,34 +257,34 @@ export default function Home() {
                             </p>
                         </div>
                         <div className="demo">
-                            <div className="box" style={{ borderColor: 'white', height: "auto", width: "auto", border: 'none' }}>
+                            <div className="box" style={{ borderColor: 'white', height: "auto", width: "90%", border: 'none' }}>
                                 <ReactPlayer url={Linux_tut} loop playing height="100%" width="100%" muted />
                             </div>
                         </div>
                     </div></>) : (<></>)
             }
             {
-                tut?(
-                <div id='tut' style={{
-                    minHeight:'100vh', width:'100vw', overflow:'auto',
-                    background:'#22272d', padding:'30px', color:'white'
-                }}>
-                <h1>Tutorials</h1>
-                <h2 style={{margin:'40px 0' ,display:'flex',alignItems:"center",gap:'10px'}}><LibraryBooksIcon fontSize="large"/><p>Concepts</p></h2>
-                <div className="concepts">
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                    <Concept />
-                </div>
-                </div>
-                ):(<></>)
+                tut ? (
+                    <div id='tut' style={{
+                        minHeight: '100vh', width: '100vw', overflow: 'auto',
+                        background: '#22272d', padding: '30px', color: 'white'
+                    }}>
+                        <h1>Tutorials</h1>
+                        <h2 style={{ margin: '40px 0', display: 'flex', alignItems: "center", gap: '10px' }}><LibraryBooksIcon fontSize="large" /><p>Concepts</p></h2>
+                        <div className="concepts">
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                            <Concept />
+                        </div>
+                    </div>
+                ) : (<></>)
             }
 
         </div >

@@ -11,6 +11,7 @@ import letshpc from '../../Letshpc.png'
 import SSH_Modal from '../../Components/Modal/SSH_modal'
 import Mac_tut from './Mac_tut.gif'
 import Linux_tut from './Linux_tut2.mp4'
+import win_tut from './win_tut.mp4'
 import Linux from './linux.svg'
 import windows from './windows.svg'
 import AppleIcon from '@material-ui/icons/Apple';
@@ -199,13 +200,25 @@ export default function Home() {
                                             Just hit the <b>Open SSH</b> button on the top of this manual
                                 </p>
                                     </li>
+                                    <p>------<b>Optional</b> but recommended steps---------</p>
+                                <li>
+                                    To ensure working, type in the following : 
+                                    <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Set-Service -Name sshd -StartupType 'Automatic'</p>
+                                    Confirm if the rule is configured by executing
+                                    <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Get-NetFirewallRule -Name ssh</p>
+                                    There should be a firewall rule named "OpenSSH-Server-In-TCP", <br/>which should be enabled .
+                                </li>
+                                <li>
+                                    If the firewall does not exist, create one
+                                    <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</p>
+                                </li>
+
                                 </ol>
                             </p>
                         </div>
                         <div className="demo">
-                            <div className="box" style={{ borderColor: 'white' }}>
-                                <PlayCircleFilledIcon style={{ fontSize: '70px' }} />
-                                <p style={{ fontSize: '30px' }}>Setup Video Coming Soon!</p>
+                            <div className="box" style={{ borderColor: 'white', height: "auto", width: "90%", border: 'none' }}>
+                                <ReactPlayer url={win_tut} loop playing height="100%" width="100%" muted />
                             </div>
                         </div>
                     </div>

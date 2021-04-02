@@ -8,7 +8,7 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+// import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,13 +56,20 @@ export default function RecipeReviewCard({ OS }) {
             <ExpandMoreIcon />
           </IconButton>
         }
-        title={OS==="mac"?"Installation of Brew and OpenMP":"Installation of OpenMP"}
-        subheader={OS === "mac" ? "On a Mac (One Time Setup)" : "On Linux (One Time Setup)"}
+        title= {OS==="windows"?"Activation of OpenMP":(OS==="mac"?"Installation of Brew and OpenMP":"Installation of OpenMP")} 
+        subheader={OS==="windows"?"On Windows (One Time Setup)":(OS === "mac" ? "On a Mac (One Time Setup)" : "On Linux (One Time Setup)")}
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {
-            OS === "mac" ? (<>
+          {OS==="windows"?(<>
+            <p style={{margin:'10px 0'}}><b>Prerequisite</b> : MinGW Installer(If it's not installed then first install it and don't forget to add its path globally in System Environment variables)</p>
+            <p style={{margin:'10px 0'}}>Activate Open MP Library by typing</p>
+            <div className="code">
+            {/* <FileCopyIcon fontSize="small" style={{position:"absolute",top:"10px",left:"96%"}}/> */}
+              mingw-get upgrade --recursive "gcc{'<'}4.7.*" "gcc-g++{'<'}4.7.*"
+            </div>
+          </>)
+            :(OS === "mac" ? (<>
               <p style={{ margin: '10px 0' }}>Install brew on your system by typing the following command on ssh* (Ignore if already installed)</p>
               <div className="code">
                 {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
@@ -80,7 +87,7 @@ export default function RecipeReviewCard({ OS }) {
             $ sudo apt-get install libomp-dev
             </div>
             </>)
-          }
+          )}
         </CardContent>
       </Collapse>
     </Card>

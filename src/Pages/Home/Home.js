@@ -201,17 +201,17 @@ export default function Home() {
                                 </p>
                                     </li>
                                     <p>------<b>Optional</b> but recommended steps---------</p>
-                                <li>
-                                    To ensure working, type in the following : 
+                                    <li>
+                                        To ensure working, type in the following :
                                     <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Set-Service -Name sshd -StartupType 'Automatic'</p>
                                     Confirm if the rule is configured by executing
                                     <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Get-NetFirewallRule -Name ssh</p>
-                                    There should be a firewall rule named "OpenSSH-Server-In-TCP", <br/>which should be enabled .
+                                    There should be a firewall rule named "OpenSSH-Server-In-TCP", <br />which should be enabled .
                                 </li>
-                                <li>
-                                    If the firewall does not exist, create one
+                                    <li>
+                                        If the firewall does not exist, create one
                                     <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</p>
-                                </li>
+                                    </li>
 
                                 </ol>
                             </p>
@@ -220,6 +220,7 @@ export default function Home() {
                             <div className="box" style={{ borderColor: 'white', height: "auto", width: "90%", border: 'none' }}>
                                 <ReactPlayer url={win_tut} loop playing height="100%" width="100%" muted />
                             </div>
+                            <h2>Windows Video Tutorial</h2>
                         </div>
                     </div>
                 </>) : (<></>)
@@ -254,9 +255,9 @@ export default function Home() {
                                     </li>
                                     {/* <li>
                                         Now to find your ip. Type in the following command and check the address under inet6 (not 127.0.0.1)
-                                <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>ifconfig -a</p>
-                                    </li>
-                                */}
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>ifconfig -a</p>
+                                        </li>
+                                    */}
                                     <li>
                                         Note down your username mentioned on the start of any terminal command
                             </li>
@@ -273,6 +274,7 @@ export default function Home() {
                             <div className="box" style={{ borderColor: 'white', height: "auto", width: "90%", border: 'none' }}>
                                 <ReactPlayer url={Linux_tut} loop playing height="100%" width="100%" muted />
                             </div>
+                            <h2>Linux Video Tutorial</h2>
                         </div>
                     </div></>) : (<></>)
             }

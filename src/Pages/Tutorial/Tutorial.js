@@ -30,7 +30,7 @@ function Tutorial() {
                 <div className="codeboxes">
                     <div className="samp">
                         <h3 style={{ color: 'white' }}>> Sample Code</h3>
-                        <ButtonGroup>
+                        <ButtonGroup style={{position:'absolute', right:'10px'}}>
                             <Button onClick={() => {
                                 document.getElementById("output").style.display = "block";
                             }} style={{ textTransform: 'capitalize', background: 'darkgreen', color: 'white', margin: '0' }}>

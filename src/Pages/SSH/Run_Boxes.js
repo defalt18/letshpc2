@@ -60,7 +60,7 @@ export default function RecipeReviewCard({ OS }) {
           </IconButton>
         }
         title="Running instructions"
-        subheader={OS==="mac"?"On a Mac" : "On Linux"}
+        subheader={OS==="windows"?"On Windows":(OS==="mac"?"On a Mac" : "On Linux")}
       />
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
@@ -75,29 +75,42 @@ export default function RecipeReviewCard({ OS }) {
             {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
             $ curl "https://firebasestorage.googleapis.com/v0/b/letshpc2.appspot.com/o/topic1.c?alt=media&token=b3b5c202-7f3a-4359-b7b9-f352ceca5ea2" -o topic1.c
             </div>
-          <p style={{ margin: '10px 0' }}>To see and change the code as per your liking open the code using (Optional)</p>
-          <div className="code">
-            {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
-            $ nano topic1.c
+          {OS==="windows"?(<>
+            <p style={{ margin: '10px 0' }}>Compile the program*</p>
+            <div className="code">
+              gcc -fopenmp topic1.c -o res
             </div>
-          <p style={{ margin: '10px 0' }}>Run the program*</p>
-          <div className="code">
-            {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
-            {
-              OS === "mac" ? (
-                <>
-                  $ clang -Xpreprocessor -fopenmp -lomp topic1.c<br></br>
-                  $ ./a.out
-                </>
-              ) : (
-                <>
-                  $ gcc -otopic1 -fopenmp topic1.c<br></br>
-                  $ ./topic1
-                </>
-            )
-            }
-
+            <p style={{ margin: '10px 0' }}>Run the program*</p>
+            <div className="code">
+              res
+            </div>
+          </>)
+        :(<>
+        <p style={{ margin: '10px 0' }}>To see and change the code as per your liking open the code using (Optional)</p>
+        <div className="code">
+          {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
+          $ nano topic1.c
           </div>
+        <p style={{ margin: '10px 0' }}>Run the program*</p>
+        <div className="code">
+          {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
+          {
+            OS === "mac" ? (
+              <>
+                $ clang -Xpreprocessor -fopenmp -lomp topic1.c<br></br>
+                $ ./a.out
+              </>
+            ) : (
+              <>
+                $ gcc -otopic1 -fopenmp topic1.c<br></br>
+                $ ./topic1
+              </>
+          )
+            }
+          </div>
+        </>
+        )
+          }
         </CardContent>
       </Collapse>
     </Card>

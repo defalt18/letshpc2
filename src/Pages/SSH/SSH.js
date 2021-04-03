@@ -1,7 +1,7 @@
 import React from 'react'
 import "./SSH.css"
 import Boxes from './Boxes'
-import Run_Boxes from './Run_boxes'
+import Run_Boxes from './Run_Boxes'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 

@@ -67,6 +67,9 @@ export default function RecipeReviewCard({ OS }) {
           <p style={{ margin: '10px 0' }}>Make a directory (Optional)</p>
           <div className="code">
             {/* <FileCopyIcon fontSize="small" style={{ position: "absolute", top: "10px", left: "96%" }} /> */}
+            {
+              OS==="windows"?(<>$ powershell<br/></>):(<></>)
+            }
             $ mkdir parallel_programs<br></br>
             $ cd parallel_programs
             </div>

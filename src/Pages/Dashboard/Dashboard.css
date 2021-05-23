@@ -78,6 +78,12 @@
     align-items: center;
 }
 
+.bio{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .desc__profile{
     display: flex;
     flex-direction: column;

@@ -15,11 +15,11 @@ function Dashboard() {
         <div class="dashboard__home">
             <div class="sidebar">
                 <h2>Dashboard</h2>
-                <h3 style={{ color: `${page === 0 ? "white" : "lightgray"}` }} onClick={() => setpage(0)}>Tutorials</h3>
-                <h3 style={{ color: `${page === 1 ? "white" : "lightgray"}` }} onClick={() => setpage(1)}>Report Generation</h3>
-                <h3 style={{ color: `${page === 2 ? "white" : "lightgray"}` }} onClick={() => setpage(2)}>Data Visualisation</h3>
-                <h3 style={{ color: `${page === 3 ? "white" : "lightgray"}` }} onClick={() => setpage(3)}>Profile</h3>
-                <h3><a href="/" style={{ textDecoration: 'none', color: "lightgray" }}>Logout</a></h3>
+                <h3 style={{ color: `${page === 0 ? "white" : "gray"}` }} onClick={() => setpage(0)}>Tutorials</h3>
+                <h3 style={{ color: `${page === 1 ? "white" : "gray"}` }} onClick={() => setpage(1)}>Report Generation</h3>
+                <h3 style={{ color: `${page === 2 ? "white" : "gray"}` }} onClick={() => setpage(2)}>Data Visualisation</h3>
+                <h3 style={{ color: `${page === 3 ? "white" : "gray"}` }} onClick={() => setpage(3)}>Profile</h3>
+                <h3><a href="/" style={{ textDecoration: 'none', color: "gray" }}>Logout</a></h3>
             </div>
             {
                 page === 0 ?
@@ -103,8 +103,9 @@ function Dashboard() {
                                     <h3>Student ID :</h3>
                                     <p>201xxxxxx</p>
                                 </div>
-                                <div className="info">
-                                    <p><b>Bio : </b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, aspernatur repellat quidem animi numquam eaque aliquam iusto architecto deserunt! Asperiores, ipsam necessitatibus corrupti sunt sequi quis quaerat, libero eius exercitationem error accusamus aspernatur laudantium adipisci 
+                                <div class="bio">
+                                    <h3>Bio</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, aspernatur repellat quidem animi numquam eaque aliquam iusto architecto deserunt! Asperiores, ipsam necessitatibus corrupti sunt sequi quis quaerat, libero eius exercitationem error accusamus aspernatur laudantium adipisci 
                                         unde doloribus nemo nobis odit tempore iusto, ducimus tenetur? Ratione molestiae voluptates molestias dolore esse.</p>
                                 </div>
                             </div>

@@ -25,6 +25,24 @@
     padding-top: 5vh;
 }
 
+.tutorial__item{
+    background: #1c2125;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 5px;
+    color: lightgray;
+}
+
+.tutorial__list{
+    display: flex;
+    margin-top: 5vh;
+    flex-direction: column;
+    gap:20px;
+    margin-bottom: 20px;
+}
+
 .sidebar > h2 {
     padding: 10px 30px;
     padding-top: 5vh;

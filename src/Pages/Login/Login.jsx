@@ -34,7 +34,7 @@ function Login() {
     };
 
     const [signup, setsignup] = React.useState({
-        studentid: "",
+        username: "",
         email: "",
         password: "",
         cpass: ""
@@ -64,7 +64,7 @@ function Login() {
                 }
             }
             else {
-                if (signup.studentid === "") {
+                if (signup.username === "") {
                     throw ("Please enter valid Student Id");
                 }
 
@@ -108,8 +108,8 @@ function Login() {
                     :
                     <div className="login__box">
                         <h2>Sign Up to LetsHPC</h2>
-                        <label htmlFor="studentid">Student ID</label>
-                        <input type="number" name="studentid" id="studentid" onChange={handleSignupChanges} placeholder="201xxxxxx" />
+                        <label htmlFor="studentid">Username</label>
+                        <input type="number" name="username" id="username" onChange={handleSignupChanges} placeholder="Username" />
                         <label htmlFor="name">Name</label>
                         <input type="text" name="name" id="name" onChange={handleSignupChanges} placeholder="John Doe" />
                         <label htmlFor="password">Password</label>

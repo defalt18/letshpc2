@@ -25,6 +25,31 @@
     padding-top: 5vh;
 }
 
+.plots__dashboard{
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.plot{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+    background: #1c2125;
+    border-radius: 5px;
+    align-items: center;
+    color: lightgray;
+}
+
+.plot > img {
+    height: 25vh;
+    width: auto;
+}
+
 .tutorial__item{
     background: #1c2125;
     padding: 20px;
@@ -33,6 +58,50 @@
     gap: 20px;
     border-radius: 5px;
     color: lightgray;
+}
+.profile__item{
+    background: #1c2125;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    border-radius: 5px;
+    color: lightgray;
+}
+
+.Report_Boxes{
+    background: #1c2125;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    color: lightgray;
+    align-items: center;
+}
+
+.desc__profile{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;   
+    flex-wrap: wrap;
+    width: 70%;
+}
+
+.info{
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+.profile__right{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box_report:hover{
+    background: rgba(28,33,37,0.6);
+    cursor: pointer;
 }
 
 .tutorial__list{

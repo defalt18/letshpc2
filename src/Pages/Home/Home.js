@@ -23,6 +23,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Concept from './Concept Matter/Concept'
+import {Link} from 'react-router-dom'
 
 export function DisabledTabs({ func, func2 }) {
     const [value, setValue] = React.useState(0);
@@ -54,6 +55,9 @@ export default function Home() {
 
     return (
         <div style={{ overflowX: 'hidden' }}>
+            <Link to="/login">
+                <Button style={{ position: 'absolute', top: 20, right: 20, color: 'black', background: 'white' }}>Login</Button>
+            </Link>
             <DisabledTabs func={setut} func2={setwin} />
             <div
                 style=
@@ -71,7 +75,7 @@ export default function Home() {
                     tut === 1 ? (<>
                         <h1>Tutorials</h1>
                         <p style={{ textAlign: 'center', marginBottom: '10px' }}>A couple of tutorials based on the elementary concepts of HPC<br /> to build a greater
-                    understanding about the subject.</p>
+                            understanding about the subject.</p>
                         <div class="arrow bounce">
                             <a href="#tut"><ArrowDownwardIcon fontSize="large" /></a>
                         </div>
@@ -136,21 +140,21 @@ export default function Home() {
                                 <ol className="mannual_points">
                                     <li>
                                         Head on to "System Preferences" > "Sharing".
-                            </li>
+                                    </li>
                                     <li>
                                         Check "Remote Login" in the list of services on the left.
-                            </li>
+                                    </li>
                                     <li>
                                         Note down the Username
-                                <p style={{ margin: '10px 0' }}>It shall be displayed in this fashion</p>
+                                        <p style={{ margin: '10px 0' }}>It shall be displayed in this fashion</p>
                                         <b>username@IP</b>
                                         <p style={{ margin: '10px 0' }}>For e.g. mark@192.168.0.145</p>
                                     </li>
                                     <li>
                                         You are good to go 👍🏽
-                                <p style={{ margin: '10px 0' }}>
+                                        <p style={{ margin: '10px 0' }}>
                                             Just hit the <b>Open SSH</b> button on the top of this manual
-                                </p>
+                                        </p>
                                     </li>
                                 </ol>
                                 <p style={{ margin: '50px 10%' }}><i>Note: The latest M1 chips are not supported yet!</i></p>
@@ -183,34 +187,34 @@ export default function Home() {
                                 <ol className="mannual_points">
                                     <li>
                                         Head over to Settings > Apps > Optional Features
-                            </li>
+                                    </li>
                                     <li>
                                         Hit "Add a Feature" if you don't see OpenSSH in the feature list.
-                            </li>
+                                    </li>
                                     <li>
                                         Search the "OpenSSH Server" in the list and hit Install.
-                            </li>
+                                    </li>
                                     <li>
                                         After installation, open up Powershell and type in
                                         <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Start-Service sshd</p>
                                     </li>
                                     <li>
                                         You are good to go 👍🏽
-                                <p style={{ margin: '10px 0' }}>
+                                        <p style={{ margin: '10px 0' }}>
                                             Just hit the <b>Open SSH</b> button on the top of this manual
-                                </p>
+                                        </p>
                                     </li>
                                     <p>------<b>Optional</b> but recommended steps---------</p>
                                     <li>
                                         To ensure working, type in the following :
-                                    <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Set-Service -Name sshd -StartupType 'Automatic'</p>
-                                    Confirm if the rule is configured by executing
-                                    <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Get-NetFirewallRule -Name ssh</p>
-                                    There should be a firewall rule named "OpenSSH-Server-In-TCP", <br />which should be enabled .
-                                </li>
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Set-Service -Name sshd -StartupType 'Automatic'</p>
+                                        Confirm if the rule is configured by executing
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>Get-NetFirewallRule -Name ssh</p>
+                                        There should be a firewall rule named "OpenSSH-Server-In-TCP", <br />which should be enabled .
+                                    </li>
                                     <li>
                                         If the firewall does not exist, create one
-                                    <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</p>
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22</p>
                                     </li>
 
                                 </ol>
@@ -243,14 +247,14 @@ export default function Home() {
                                 <ol className="mannual_points">
                                     <li>
                                         Head on to your local terminal
-                            </li>
+                                    </li>
                                     <li>
                                         Put in the following command to setup openssh server
-                                <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>sudo apt install openssh-server</p>
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>sudo apt install openssh-server</p>
                                     </li>
                                     <li>
                                         Check to see if the setup has been successfull using
-                                <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>sudo systemctl status ssh</p>
+                                        <p style={{ margin: '10px 0', fontFamily: 'monospace', fontSize: '15px' }}>sudo systemctl status ssh</p>
                                         <p style={{ margin: '10px 0' }}>it should say <b>"active(running)"</b></p>
                                     </li>
                                     {/* <li>
@@ -260,12 +264,12 @@ export default function Home() {
                                     */}
                                     <li>
                                         Note down your username mentioned on the start of any terminal command
-                            </li>
+                                    </li>
                                     <li>
                                         You are good to go 👍🏽
-                                <p style={{ margin: '10px 0' }}>
+                                        <p style={{ margin: '10px 0' }}>
                                             Just hit the <b>Open SSH</b> button on the top of this manual
-                                </p>
+                                        </p>
                                     </li>
                                 </ol>
                             </p>

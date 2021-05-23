@@ -32,8 +32,12 @@ function App() {
                     path="/tutorials"
                     component={Tutorial}
                 ></PrivateRoute>
+                <PrivateRoute
+                    exact
+                    path="/:uid/dashboard"
+                    component={Dashboard}
+                ></PrivateRoute>
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/:uid/dashboard" component={Dashboard} />
             </Switch>
         </>
     );

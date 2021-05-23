@@ -118,7 +118,8 @@ function Login() {
     };
 
     if (auth.authenticate) {
-        return <Redirect to="/:user._id/dashboard" />;
+        console.log("user", user);
+        return <Redirect to={`/:${user._id}/dashboard`} />;
     }
 
     if (user.loading) {
@@ -140,7 +141,7 @@ function Login() {
                     />
                     <label htmlFor="password">Password</label>
                     <input
-                        type="text"
+                        type="password"
                         name="password"
                         id="password"
                         onChange={handleLoginChanges}
@@ -173,37 +174,37 @@ function Login() {
             ) : (
                 <div className="login__box">
                     <h2>Sign Up to LetsHPC</h2>
-                    <label htmlFor="studentid">Username</label>
-                    <input
-                        type="number"
-                        name="username"
-                        id="username"
-                        onChange={handleSignupChanges}
-                        placeholder="Username"
-                    />
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="studentid">First Name</label>
                     <input
                         type="text"
-                        name="name"
-                        id="name"
+                        name="firstName"
+                        id="firstName"
                         onChange={handleSignupChanges}
-                        placeholder="John Doe"
+                        placeholder="first name"
+                    />
+                    <label htmlFor="name">Last Name</label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        onChange={handleSignupChanges}
+                        placeholder="last name"
+                    />
+                    <label htmlFor="email">email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        onChange={handleSignupChanges}
+                        placeholder="Confirm Password"
                     />
                     <label htmlFor="password">Password</label>
                     <input
-                        type="text"
+                        type="password"
                         name="password"
                         id="password"
                         onChange={handleSignupChanges}
                         placeholder="Password"
-                    />
-                    <label htmlFor="cpass">Confirm Password</label>
-                    <input
-                        type="text"
-                        name="cpass"
-                        id="cpass"
-                        onChange={handleSignupChanges}
-                        placeholder="Confirm Password"
                     />
 
                     <Button id="loginbut" onClick={userSignup}>

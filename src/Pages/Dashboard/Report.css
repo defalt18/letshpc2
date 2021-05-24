@@ -2,8 +2,13 @@
     from {top: 100vh;}
     to {top: 0;}
 }
+
+@keyframes mymoveout {
+    from {top: 0;}
+    to {top: 100vh;}
+}
 .report__page{
-    background: rgba(0,0,0,0.8);
+    background: #22272d;
     height: 100%;
     width: 100%;
     z-index: 100;
@@ -14,6 +19,30 @@
     top : 0;
     display: flex;
     align-items: center;
+}
+
+.report__page__down{
+    background: #22272d;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    animation: mymoveout 500ms;
+    position: fixed;
+    overflow: scroll;
+    left: 0;
+    top : 100%;
+    display: flex;
+    align-items: center;
+}
+
+#close_icon{
+    position: absolute;
+    z-index: inherit;
+    top: 20px;
+    right: 10px;
+    color: black;
+    background-color: rgb(255,255,255);
+    cursor: pointer;
 }
 
 .a4-sheet{
@@ -37,6 +66,7 @@
     background: #0e1117;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
     overflow: scroll;
 }
@@ -47,11 +77,16 @@
     padding-bottom: 10px;
     background-color: inherit;
     top: 0;
+    width: 100%;
     box-shadow: 0 0 5px 0 black;
 }
 
 #plot__side:hover{
     background-color: #22272d;   
+}
+
+#plot__side{
+    width: 80%;
 }
 
 .paper__show{

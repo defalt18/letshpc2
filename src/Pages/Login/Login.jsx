@@ -16,10 +16,6 @@ function Login() {
     const auth = useSelector((state) => state.auth);
     const user = useSelector((state) => state.user);
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    // const [error, setError] = useState("");
-
     const history = useHistory();
     const [page, setpage] = React.useState(1);
 
@@ -40,38 +36,42 @@ function Login() {
     const [error, seterror] = React.useState("");
     const [open, setOpen] = React.useState(false);
 
-    const userLogin = (e) => {
-        e.preventDefault();
-        const user = { email: loginData.email, password: loginData.password };
-        dispatch(login(user));
-    };
+    const userLogin = React.useCallback(
+        (e) => {
+            e.preventDefault();
+            const user = {
+                email: loginData.email,
+                password: loginData.password,
+            };
+            dispatch(login(user));
+        },
+        [dispatch, loginData]
+    );
 
-    const userSignup = (e) => {
-        e.preventDefault();
-        const user = {
-            firstName: signupData.firstName,
-            lastName: signupData.lastName,
-            email: signupData.email,
-            password: signupData.password,
-        };
-        dispatch(signup(user));
-    };
-
-    if (auth.authenticate) {
-        return <Redirect to="/" />;
-    }
+    const userSignup = React.useCallback(
+        (e) => {
+            e.preventDefault();
+            const user = {
+                firstName: signupData.firstName,
+                lastName: signupData.lastName,
+                email: signupData.email,
+                password: signupData.password,
+            };
+            dispatch(signup(user));
+        },
+        [dispatch, signupData]
+    );
 
     const handleClick = () => {
         setOpen(true);
     };
 
-    const handleClose = (event, reason) => {
+    const handleClose = React.useCallback((event, reason) => {
         if (reason === "clickaway") {
             return;
         }
-
         setOpen(false);
-    };
+    }, []);
 
     const handleSignupChanges = (e) => {
         const { name, value } = e.target;
@@ -116,10 +116,8 @@ function Login() {
             handleClick();
         }
     };
-
     if (auth.authenticate) {
-        console.log("user", user);
-        return <Redirect to={`/:${user._id}/dashboard`} />;
+        return <Redirect to={`/${auth.user._id}/dashboard`} />;
     }
 
     if (user.loading) {

@@ -5,10 +5,11 @@ exports.getAllTutorials = (req, res) => {
         if (err)
             return res.status(400).json({
                 message: "Somethings went wrong",
+                error: err,
             });
         return res.status(200).json({
             message: "All Tutorial fetched",
-            Tutorials: Tutorial,
+            tutorials: Tutorial,
         });
     });
 };
@@ -18,10 +19,11 @@ exports.getTutorial = (req, res) => {
         if (err)
             return res.status(400).json({
                 message: "Somethings went wrong",
+                error: err,
             });
         return res.status(200).json({
             message: "Tutorial fetched successfully",
-            Tutorials: Tutorial,
+            tutorial: Tutorial,
         });
     });
 };

@@ -8,20 +8,23 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./Components/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
-import { isUserLoggedIn } from "./actions";
+import { isUserLoggedIn, getAllTutorials } from "./actions";
 
 function App() {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
+    const tutorials = useSelector((state) => state.tutorials);
 
     useEffect(() => {
         if (!auth.authenticated) {
             dispatch(isUserLoggedIn());
         }
+        dispatch(getAllTutorials());
     }, []);
 
     return (
         <>
+            {console.log("tutorials", tutorials)}
             <Switch>
                 <PrivateRoute path="/" exact component={Home}></PrivateRoute>
                 <PrivateRoute

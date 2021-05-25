@@ -23,10 +23,14 @@ const tutorialSchema = require("mongoose").Schema(
             type: String,
         },
         sampleCode: {
-            code: { type: String },
-            input: { type: String },
-            output: { type: String },
+            type: String,
         },
+        testCase: [
+            {
+                input: { type: String },
+                output: { type: String },
+            },
+        ],
     },
     { timestamps: true }
 );

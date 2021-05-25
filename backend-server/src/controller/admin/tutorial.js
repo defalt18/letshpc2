@@ -1,8 +1,14 @@
 const Tutorial = require("../../models/tutorial");
 
 exports.createTutorial = (req, res) => {
-    const { tutorialName, level, tutorialInfo, tutorialAbout, sampleCode } =
-        req.body;
+    const {
+        tutorialName,
+        level,
+        tutorialInfo,
+        tutorialAbout,
+        sampleCode,
+        testCase,
+    } = req.body;
     console.log("call from here");
     const _tutorial = new Tutorial({
         tutorialName,
@@ -10,6 +16,7 @@ exports.createTutorial = (req, res) => {
         tutorialInfo,
         tutorialAbout,
         sampleCode,
+        testCase,
     });
 
     _tutorial.save((error, tutorial) => {
@@ -42,6 +49,8 @@ exports.editTutorial = (req, res) => {
                 (tutorial.tutorialAbout = req.body.tutorialAbout);
             req.body.sampleCode != null &&
                 (tutorial.sampleCode = req.body.sampleCode);
+            req.body.testCase != null &&
+                (tutorial.testCase = req.body.testCase);
             tutorial.save((error, tutorial) => {
                 if (error) {
                     return res.status(400).json({

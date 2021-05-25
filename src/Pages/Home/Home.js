@@ -53,6 +53,8 @@ export default function Home() {
     const [win, setwin] = React.useState(-1);
     const [tut, setut] = React.useState(0);
 
+    const [Tutorials, setTutorials] = React.useState([]);
+
     return (
         <div style={{ overflowX: 'hidden' }}>
             <Link to="/login">
@@ -291,6 +293,12 @@ export default function Home() {
                         <h1>Tutorials</h1>
                         <h2 style={{ margin: '40px 0', display: 'flex', alignItems: "center", gap: '10px' }}><LibraryBooksIcon fontSize="large" /><p>Concepts</p></h2>
                         <div className="concepts">
+                            {   
+                                Tutorials.map((item)=>(
+                                    <Concept />
+                                ))
+                            }
+                            {/* <Concept />
                             <Concept />
                             <Concept />
                             <Concept />
@@ -298,9 +306,7 @@ export default function Home() {
                             <Concept />
                             <Concept />
                             <Concept />
-                            <Concept />
-                            <Concept />
-                            <Concept />
+                            <Concept /> */}
                         </div>
                     </div>
                 ) : (<></>)

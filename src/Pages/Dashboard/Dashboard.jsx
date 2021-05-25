@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import plot_img from './sample_plot.png'
 import Button from '@material-ui/core/Button';
-import avatar_dummy from './avatar_yellow.png'
+import avatar_dummy from './avatar_yello.png'
+import Report from './Report'
 
 function Dashboard() {
 
     const [page, setpage] = React.useState(0);
+    const [doc, setDoc] = React.useState(false);
 
     return (
         <div class="dashboard__home">
@@ -51,11 +53,12 @@ function Dashboard() {
                                 <h2>Evaluation Status</h2>
                                 <Chip variant="outlined" size="small" label="Pending" style={{ color: 'yellow', borderColor: 'yellow', background: 'rgba(255,255,0,0.1)' }} />
                             </div>
-                            <div className="Report_Boxes box_report">
+                            <div onClick={()=>setDoc(true)} className="Report_Boxes box_report">
                                 <h2>Go to Report</h2>
                                 <Chip variant="outlined" size="small" label="Pending" style={{ color: 'yellow', borderColor: 'yellow', background: 'rgba(255,255,0,0.1)' }} />
                             </div>
                         </div>
+                        {doc && <Report func={setDoc}/>}
                     </div> : <></>
             }
             {
@@ -75,7 +78,7 @@ function Dashboard() {
                             Array(5).fill().map((_, i) => (
                                 <div key={i} className="plot">
                                     <img src={plot_img} alt="" />
-                                    <h2>Figure {i}</h2>
+                                    <h2>Figure {i+1}</h2>
                                     <p>Figure name goes here</p>
                                 </div>
                             ))
@@ -105,8 +108,7 @@ function Dashboard() {
                                 </div>
                                 <div class="bio">
                                     <h3>Bio</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, aspernatur repellat quidem animi numquam eaque aliquam iusto architecto deserunt! Asperiores, ipsam necessitatibus corrupti sunt sequi quis quaerat, libero eius exercitationem error accusamus aspernatur laudantium adipisci 
-                                        unde doloribus nemo nobis odit tempore iusto, ducimus tenetur? Ratione molestiae voluptates molestias dolore esse.</p>
+                                    <p>I am a ICT with Minors in CS student</p>
                                 </div>
                             </div>
                             <div class="profile__right">

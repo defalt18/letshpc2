@@ -17,12 +17,19 @@
     top: 0;
 }
 
+@keyframes mymove {
+    from {top: 50vh;}
+    to {top: 0;}
+}
+
 .page{
     color: white;
     width: 80%;
     min-height: 100vh;
     padding: 0 40px;
     padding-top: 5vh;
+    position: relative;
+    animation: mymove 500ms;
 }
 
 .plots__dashboard{

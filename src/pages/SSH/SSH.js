@@ -9,7 +9,8 @@ function SSH(props) {
 	let string =
 		'chrome-extension://iodihamcpbpeioajjeobimgagajmlibd/html/nassh.html#' +
 		props.match.params.username.toString() +
-		'@127.0.0.1'
+		'@' +
+		props.match.params.ip.toString()
 	return (
 		<div
 			style={{

@@ -11,7 +11,7 @@ function App() {
 		<Router>
 			<Switch>
 				<Route exact path='/' component={Home} />
-				<Route exact path='/ssh/:OS/:username' component={SSH} />
+				<Route exact path='/ssh/:OS/:username/:ip' component={SSH} />
 				<Route exact path='/tutorials' component={Tutorial} />
 				<Route exact path='/login' component={Login} />
 				<Route exact path='/dashboard' component={Dashboard} />

@@ -7,7 +7,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import winlogo from './home_assets/windows-logo-social.png'
 import linuxlogo from './home_assets/linux.png'
 import letshpc from '../../Letshpc.png'
-import sshModal from '../../components/Modal/SshModal'
+import SshModal from '../../components/Modal/SshModal'
 import Mac_tut from './home_assets/Mac_tut.gif'
 import Linux_tut from './home_assets/Linux_tut2.mp4'
 import win_tut from './home_assets/win_tut.mp4'
@@ -190,7 +190,7 @@ export default function Home() {
 							</h1>
 							<div className='open'>
 								<h2 style={{ padding: '2% 5%' }}>Setup Steps</h2>
-								<sshModal
+								<SshModal
 									textcolor='white'
 									background='rgb(0,150,255)'
 									OS='mac'
@@ -276,7 +276,7 @@ export default function Home() {
 							</h1>
 							<div className='open'>
 								<h2 style={{ padding: '2% 5%' }}>Setup Steps</h2>
-								<sshModal textcolor='black' background='white' OS='windows' />
+								<SshModal textcolor='black' background='white' OS='windows' />
 							</div>
 							<hr></hr>
 							<p>
@@ -410,7 +410,7 @@ export default function Home() {
 							</h1>
 							<div className='open'>
 								<h2 style={{ padding: '2% 5%' }}>Setup Steps</h2>
-								<sshModal textcolor='white' background='orange' OS='linux' />
+								<SshModal textcolor='white' background='orange' OS='linux' />
 							</div>
 							<hr></hr>
 							<p>

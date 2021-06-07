@@ -21,7 +21,7 @@ export default function SshModal({ textcolor, background, OS }) {
 	const [open, setOpen] = React.useState(false)
 
 	const [username, setUsername] = React.useState('')
-	// const [IP, setIP] = React.useState("127.0.0.1");
+	const [IP, setIP] = React.useState('127.0.0.1')
 
 	const handleOpen = () => {
 		setOpen(true)
@@ -70,10 +70,18 @@ export default function SshModal({ textcolor, background, OS }) {
 							label='Username'
 							variant='outlined'
 						/>
-						{/* <h3>Enter Local IP Address</h3> */}
-						{/* <TextField value={IP} onChange={(e) => { setIP(e.target.value) }} id="outlined-search" label="Local IP Address" variant="outlined" /> */}
+						<h3>Enter Local IP Address</h3>
+						<TextField
+							value={IP}
+							onChange={(e) => {
+								setIP(e.target.value)
+							}}
+							id='outlined-search'
+							label='Local IP Address'
+							variant='outlined'
+						/>
 						<Link
-							to={{ pathname: `/ssh/${OS}/${username}` }}
+							to={{ pathname: `/ssh/${OS}/${username}/${IP}` }}
 							style={{ textDecoration: 'none' }}
 						>
 							<Button variant='contained' color='primary'>

@@ -13,7 +13,10 @@ function Dashboard(props) {
 	const [doc, setDoc] = React.useState(false)
 	const [user, setUser] = useState({})
 
-	useEffect(() => setUser(JSON.parse(props.location.state.details)), [setUser])
+	useEffect(
+		() => setUser(JSON.parse(props.location.state.details)),
+		[setUser, props]
+	)
 	return (
 		<div className='dashboard__home'>
 			<div className='sidebar'>

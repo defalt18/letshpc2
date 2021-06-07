@@ -55,54 +55,51 @@ function Dashboard(props) {
 				<div className='page'>
 					<h2>This is Tutorials Page</h2>
 					<div className='tutorial__list'>
-						{
-							(console.log(user),
-							Array(5)
-								.fill()
-								.map((_, i) => (
-									<Link
-										to={'/tutorials'}
-										style={{ textDecoration: 'none', color: 'lightgray' }}
-									>
-										<div className='tutorial__item'>
-											<div
+						{Array(5)
+							.fill(0)
+							.map((_, i) => (
+								<Link
+									key={i}
+									to={'/tutorials'}
+									style={{ textDecoration: 'none', color: 'lightgray' }}
+								>
+									<div className='tutorial__item'>
+										<div
+											style={{
+												display: 'flex',
+												gap: '10px',
+												alignItems: 'center'
+											}}
+										>
+											<h3>Topic Name</h3>
+											<Chip
+												variant='outlined'
+												size='small'
+												label='Beginner'
+												style={{ color: 'green', borderColor: 'green' }}
+											/>
+											<p
 												style={{
-													display: 'flex',
-													gap: '10px',
-													alignItems: 'center'
+													marginLeft: 'auto',
+													color: 'lightgreen',
+													cursor: 'pointer'
 												}}
 											>
-												<h3>Topic Name</h3>
-												<Chip
-													variant='outlined'
-													size='small'
-													label='Beginner'
-													style={{ color: 'green', borderColor: 'green' }}
-												/>
-												<p
-													style={{
-														marginLeft: 'auto',
-														color: 'lightgreen',
-														cursor: 'pointer'
-													}}
-												>
-													Mark as Read
-												</p>
-											</div>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipisicing
-												elit. Vero autem aperiam et! Repellat minus, omnis earum
-												maxime totam cupiditate sint exercitationem tempora
-												ipsam mollitia id officia qui commodi quo maiores
-												dolores aliquam, similique cum dolorum pariatur,
-												suscipit quibusdam voluptate? Eaque ex nisi alias error
-												earum explicabo nobis praesentium obcaecati
-												consequuntur.
+												Mark as Read
 											</p>
 										</div>
-									</Link>
-								)))
-						}
+										<p>
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+											Vero autem aperiam et! Repellat minus, omnis earum maxime
+											totam cupiditate sint exercitationem tempora ipsam
+											mollitia id officia qui commodi quo maiores dolores
+											aliquam, similique cum dolorum pariatur, suscipit
+											quibusdam voluptate? Eaque ex nisi alias error earum
+											explicabo nobis praesentium obcaecati consequuntur.
+										</p>
+									</div>
+								</Link>
+							))}
 					</div>
 				</div>
 			) : (
@@ -161,7 +158,7 @@ function Dashboard(props) {
 					<h2>Recently Generated Plots</h2>
 					<div className='plots__dashboard'>
 						{Array(5)
-							.fill()
+							.fill(0)
 							.map((_, i) => (
 								<div key={i} className='plot'>
 									<img src={plot_img} alt='' />

@@ -1,19 +1,19 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import './Home.css'
-import macos from './MacOS_logo.png'
+import macos from './home_assets/MacOS_logo.png'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
-import winlogo from './windows-logo-social.png'
-import linuxlogo from './linux.png'
+import winlogo from './home_assets/windows-logo-social.png'
+import linuxlogo from './home_assets/linux.png'
 import letshpc from '../../Letshpc.png'
 import sshModal from '../../components/Modal/SshModal'
-import Mac_tut from './Mac_tut.gif'
-import Linux_tut from './Linux_tut2.mp4'
-import win_tut from './win_tut.mp4'
+import Mac_tut from './home_assets/Mac_tut.gif'
+import Linux_tut from './home_assets/Linux_tut2.mp4'
+import win_tut from './home_assets/win_tut.mp4'
 import _map from 'lodash/map'
-import Linux from './linux.svg'
-import windows from './windows.svg'
+import Linux from './home_assets/linux.svg'
+import windows from './home_assets/windows.svg'
 import AppleIcon from '@material-ui/icons/Apple'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import ReactPlayer from 'react-player'
@@ -44,7 +44,7 @@ export function DisabledTabs({ func, func2 }) {
 				top: '10%',
 				left: '50%',
 				transform: 'translate(-50%,0)',
-				width: 'auto',
+				width: 'auto'
 			}}
 		>
 			<Tabs
@@ -73,7 +73,7 @@ export default function Home() {
 						top: 20,
 						right: 20,
 						color: 'black',
-						background: 'white',
+						background: 'white'
 					}}
 				>
 					Login
@@ -90,7 +90,7 @@ export default function Home() {
 					width: '100vw',
 					minHeight: '100vh',
 					background: 'black',
-					color: 'white',
+					color: 'white'
 				}}
 			>
 				<img src={letshpc} alt='Lets HPC 2.0' height='200px' width='200px' />
@@ -121,7 +121,7 @@ export default function Home() {
 									fontSize: 'large',
 									width: '10vw',
 									color: 'white',
-									background: 'transparent',
+									background: 'transparent'
 								}}
 								startIcon={<AppleIcon style={{ fontSize: '35px' }} />}
 							>
@@ -137,7 +137,7 @@ export default function Home() {
 									color: 'white',
 									fontSize: 'large',
 									width: '13vw',
-									background: 'transparent',
+									background: 'transparent'
 								}}
 								startIcon={<img src={windows} alt='windows' height='35px' />}
 							>
@@ -153,7 +153,7 @@ export default function Home() {
 									color: 'white',
 									fontSize: 'large',
 									width: '10vw',
-									background: 'transparent',
+									background: 'transparent'
 								}}
 								startIcon={<img src={Linux} alt='Linux' height='35px' />}
 							>
@@ -174,7 +174,7 @@ export default function Home() {
 									paddingTop: '3%',
 									display: 'flex',
 									gap: '20px',
-									alignItems: 'center',
+									alignItems: 'center'
 								}}
 							>
 								<IconButton
@@ -233,7 +233,7 @@ export default function Home() {
 								style={{
 									background: `url(${Mac_tut})`,
 									backgroundPosition: 'center',
-									border: 'none',
+									border: 'none'
 								}}
 							></div>
 							<div>
@@ -256,7 +256,7 @@ export default function Home() {
 									paddingTop: '3%',
 									display: 'flex',
 									gap: '20px',
-									alignItems: 'center',
+									alignItems: 'center'
 								}}
 							>
 								<IconButton
@@ -266,7 +266,7 @@ export default function Home() {
 									style={{
 										color: 'white',
 										background: 'rgb(23,23,23)',
-										padding: 0,
+										padding: 0
 									}}
 								>
 									<ArrowBackIcon style={{ fontSize: '35px' }} />
@@ -295,7 +295,7 @@ export default function Home() {
 											style={{
 												margin: '10px 0',
 												fontFamily: 'monospace',
-												fontSize: '15px',
+												fontSize: '15px'
 											}}
 										>
 											Start-Service sshd
@@ -317,7 +317,7 @@ export default function Home() {
 											style={{
 												margin: '10px 0',
 												fontFamily: 'monospace',
-												fontSize: '15px',
+												fontSize: '15px'
 											}}
 										>
 											Set-Service -Name sshd -StartupType 'Automatic'
@@ -327,7 +327,7 @@ export default function Home() {
 											style={{
 												margin: '10px 0',
 												fontFamily: 'monospace',
-												fontSize: '15px',
+												fontSize: '15px'
 											}}
 										>
 											Get-NetFirewallRule -Name ssh
@@ -342,7 +342,7 @@ export default function Home() {
 											style={{
 												margin: '10px 0',
 												fontFamily: 'monospace',
-												fontSize: '15px',
+												fontSize: '15px'
 											}}
 										>
 											New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH
@@ -360,7 +360,7 @@ export default function Home() {
 									borderColor: 'white',
 									height: 'auto',
 									width: '90%',
-									border: 'none',
+									border: 'none'
 								}}
 							>
 								<ReactPlayer
@@ -390,7 +390,7 @@ export default function Home() {
 									paddingTop: '3%',
 									display: 'flex',
 									gap: '20px',
-									alignItems: 'center',
+									alignItems: 'center'
 								}}
 							>
 								<IconButton
@@ -400,7 +400,7 @@ export default function Home() {
 									style={{
 										color: 'orange',
 										background: 'transparent',
-										padding: 0,
+										padding: 0
 									}}
 								>
 									<ArrowBackIcon style={{ fontSize: '35px' }} />
@@ -422,7 +422,7 @@ export default function Home() {
 											style={{
 												margin: '10px 0',
 												fontFamily: 'monospace',
-												fontSize: '15px',
+												fontSize: '15px'
 											}}
 										>
 											sudo apt install openssh-server
@@ -434,7 +434,7 @@ export default function Home() {
 											style={{
 												margin: '10px 0',
 												fontFamily: 'monospace',
-												fontSize: '15px',
+												fontSize: '15px'
 											}}
 										>
 											sudo systemctl status ssh
@@ -469,7 +469,7 @@ export default function Home() {
 									borderColor: 'white',
 									height: 'auto',
 									width: '90%',
-									border: 'none',
+									border: 'none'
 								}}
 							>
 								<ReactPlayer
@@ -497,7 +497,7 @@ export default function Home() {
 						overflow: 'auto',
 						background: '#22272d',
 						padding: '30px',
-						color: 'white',
+						color: 'white'
 					}}
 				>
 					<h1>Tutorials</h1>
@@ -506,7 +506,7 @@ export default function Home() {
 							margin: '40px 0',
 							display: 'flex',
 							alignItems: 'center',
-							gap: '10px',
+							gap: '10px'
 						}}
 					>
 						<LibraryBooksIcon fontSize='large' />

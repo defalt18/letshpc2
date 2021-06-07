@@ -11,25 +11,25 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		maxWidth: '100%',
+		maxWidth: '100%'
 	},
 	media: {
 		height: 0,
-		paddingTop: '56.25%', // 16:9
+		paddingTop: '56.25%' // 16:9
 	},
 	expand: {
 		transform: 'rotate(0deg)',
 		marginLeft: 'auto',
 		transition: theme.transitions.create('transform', {
-			duration: theme.transitions.duration.shortest,
-		}),
+			duration: theme.transitions.duration.shortest
+		})
 	},
 	expandOpen: {
-		transform: 'rotate(180deg)',
+		transform: 'rotate(180deg)'
 	},
 	avatar: {
-		backgroundColor: red[500],
-	},
+		backgroundColor: red[500]
+	}
 }))
 
 export default function Instrutions({ OS }) {
@@ -46,7 +46,7 @@ export default function Instrutions({ OS }) {
 				action={
 					<IconButton
 						className={clsx(classes.expand, {
-							[classes.expandOpen]: expanded,
+							[classes.expandOpen]: expanded
 						})}
 						onClick={handleExpandClick}
 						aria-expanded={expanded}

@@ -16,7 +16,7 @@ function SSH(props) {
 				display: 'flex',
 				height: '100vh',
 				minWidth: '100vw',
-				overflow: 'auto',
+				overflow: 'auto'
 			}}
 		>
 			<div className='intructions'>
@@ -26,7 +26,7 @@ function SSH(props) {
 						top: 0,
 						background: 'white',
 						zIndex: 2000,
-						boxShadow: '0 0 5px 0 rgba(0,0,0,0.75)',
+						boxShadow: '0 0 5px 0 rgba(0,0,0,0.75)'
 					}}
 				>
 					<h1
@@ -34,7 +34,7 @@ function SSH(props) {
 							padding: '15px 30px',
 							display: 'flex',
 							justifyContent: 'space-between',
-							alignItems: 'center',
+							alignItems: 'center'
 						}}
 					>
 						<g># Topic 1</g>

@@ -54,7 +54,7 @@ function Tutorial() {
 									textTransform: 'capitalize',
 									background: 'darkgreen',
 									color: 'white',
-									margin: '0',
+									margin: '0'
 								}}
 							>
 								Run
@@ -65,7 +65,7 @@ function Tutorial() {
 									background: 'black',
 									padding: 0,
 									color: 'white',
-									margin: '0',
+									margin: '0'
 								}}
 							>
 								<SshModal background='black' textcolor='white' OS='mac' />

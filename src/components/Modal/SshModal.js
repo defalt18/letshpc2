@@ -7,7 +7,7 @@ import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	modal: {
 		display: 'flex',
 		alignItems: 'center',
@@ -21,7 +21,7 @@ export default function SshModal({ textcolor, background, OS }) {
 	const [open, setOpen] = React.useState(false)
 
 	const [username, setUsername] = React.useState('')
-	// const [IP, setIP] = React.useState("");
+	// const [IP, setIP] = React.useState("127.0.0.1");
 
 	const handleOpen = () => {
 		setOpen(true)

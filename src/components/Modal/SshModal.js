@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		outline: 'none',
-	},
+		outline: 'none'
+	}
 }))
 
 export default function SshModal({ textcolor, background, OS }) {
@@ -41,7 +41,7 @@ export default function SshModal({ textcolor, background, OS }) {
 					color: `${textcolor}`,
 					fontWeight: 'bold',
 					padding: '7px',
-					borderRadius: '7px',
+					borderRadius: '7px'
 				}}
 			>
 				Open SSH
@@ -55,7 +55,7 @@ export default function SshModal({ textcolor, background, OS }) {
 				closeAfterTransition
 				BackdropComponent={Backdrop}
 				BackdropProps={{
-					timeout: 500,
+					timeout: 500
 				}}
 			>
 				<Fade in={open}>

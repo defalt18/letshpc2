@@ -22,7 +22,7 @@ function Concept() {
 					style={{
 						textTransform: 'capitalize',
 						color: 'white',
-						background: 'green',
+						background: 'green'
 					}}
 				>
 					Go to tutorial

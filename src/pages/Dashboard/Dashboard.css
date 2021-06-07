@@ -18,7 +18,7 @@
 }
 
 @keyframes mymove {
-    from {top: 50vh;}
+    from {top: 10vh;}
     to {top: 0;}
 }
 

@@ -58,6 +58,11 @@
     flex-direction: column;
 }
 
+.latex__style{
+    font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+    line-height: 1.8;
+}
+
 .report__images{
     max-width: 90%;
     height: 20%;

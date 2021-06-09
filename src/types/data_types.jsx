@@ -1,7 +1,7 @@
 // as ENUM
 export const UserRole = {
-	STUDENT: 'student',
-	PROFESSOR: 'professor'
+	STUDENT: 'Student',
+	PROFESSOR: 'Professor'
 }
 // default new user
 export const User = {

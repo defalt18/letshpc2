@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import './Home.css'
 import macos from './home_assets/MacOS_logo.png'
@@ -18,12 +18,14 @@ import AppleIcon from '@material-ui/icons/Apple'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import ReactPlayer from 'react-player'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { IconButton } from '@material-ui/core'
+import { Avatar, IconButton } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Concept from './Concept Matter/Concept'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { fetchAllTutorials, useUser } from '../../services/services'
+import avatar from '../Dashboard/avatar_yello.png'
 
 export function DisabledTabs({ func, func2 }) {
 	const [value, setValue] = React.useState(0)
@@ -63,22 +65,55 @@ export function DisabledTabs({ func, func2 }) {
 export default function Home() {
 	const [win, setwin] = React.useState(-1)
 	const [tut, setut] = React.useState(0)
+	const [concepts, setConcepts] = React.useState([])
+
+	const user = useUser()
+	const history = useHistory()
+
+	const fetchAll = async () => {
+		const result = await fetchAllTutorials()
+		setConcepts(result.data.tutorials)
+	}
+	useEffect(() => fetchAll(), [])
 
 	return (
 		<div style={{ overflowX: 'hidden' }}>
-			<Link to='/login'>
+			{user ? (
 				<Button
+					onClick={() => {
+						if (user.role === 'Student') history.push('/dashboard')
+						else history.push('/admin-dashboard')
+					}}
 					style={{
 						position: 'absolute',
 						top: 20,
 						right: 20,
-						color: 'black',
-						background: 'white'
+						color: 'white',
+						textTransform: 'capitalize',
+						display: 'flex',
+						alignItems: 'center',
+						background: '#1c2125',
+						padding: '5px 20px'
 					}}
 				>
-					Login
+					<h3>{user.firstName}</h3>
+					<Avatar src={avatar} style={{ marginLeft: 10 }} />
 				</Button>
-			</Link>
+			) : (
+				<Link to='/login'>
+					<Button
+						style={{
+							position: 'absolute',
+							top: 20,
+							right: 20,
+							color: 'black',
+							background: 'white'
+						}}
+					>
+						Login
+					</Button>
+				</Link>
+			)}
 			<DisabledTabs func={setut} func2={setwin} />
 			<div
 				style={{
@@ -513,8 +548,8 @@ export default function Home() {
 						<p>Concepts</p>
 					</h2>
 					<div className='concepts'>
-						{_map(Array(10), () => (
-							<Concept />
+						{_map(concepts, (item, index) => (
+							<Concept key={index} tutorial={item} />
 						))}
 					</div>
 				</div>

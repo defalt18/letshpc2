@@ -8,8 +8,26 @@ import { IconButton } from '@material-ui/core'
 import SshModal from '../../components/Modal/SshModal'
 import { useHistory } from 'react-router-dom'
 
-function Tutorial() {
+const chipColor = {
+	beginner: 'green',
+	medium: 'yellow',
+	advance: '#eb4034'
+}
+
+function Tutorial(props) {
 	const history = useHistory()
+
+	const { state = { details: '{}' } } = props.location
+	const {
+		title = 'Sample Thread Exercise',
+		theory = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam cumque cupiditate ' +
+			'dicta eaque eius enim exercitationem ' +
+			'fugit impedit, iusto magnam maiores minus modi nihil perferendis, quis quo sed soluta tempora?',
+		code,
+		testcases = [],
+		level = 'beginner'
+	} = JSON.parse(state.details)
+
 	return (
 		<div className='tutorials__page'>
 			<div className='tut__head'>
@@ -20,27 +38,21 @@ function Tutorial() {
 				>
 					<ArrowBackIcon />
 				</IconButton>
-				<h2>Simple Thread Exercise</h2>
+				<h2>{title}</h2>
 				<Chip
 					variant='outlined'
 					size='small'
-					label='Beginner'
-					style={{ color: 'green', borderColor: 'green' }}
+					label={level[0].toUpperCase() + level.slice(1)}
+					style={{ color: chipColor[level], borderColor: chipColor[level] }}
 				/>
 			</div>
 			<div className='content__window'>
-				<h1># Simple Thread Exercise</h1>
+				<h1># {title}</h1>
 				<div className='topic__desc'>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae
-					praesentium blanditiis beatae sapiente voluptas, expedita laudantium
-					voluptatibus, sed quisquam consequuntur officia, maiores sequi! Quo
-					nostrum quia reiciendis repellendus laudantium commodi.
+					{theory}
 					<br />
 					<br />
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam
-					distinctio placeat consequuntur doloremque ratione repellat possimus
-					reiciendis esse expedita maiores quas eos rerum nisi, adipisci vero,
-					nostrum dolorum sit voluptatum.
+					{theory}
 				</div>
 				<div className='codeboxes'>
 					<div className='samp'>
@@ -72,17 +84,7 @@ function Tutorial() {
 							</Button>
 						</ButtonGroup>
 					</div>
-					#include <span>{'<'}</span>omp.h<span>{'>'}</span>
-					<br></br>
-					#include <span>{'<'}</span>stdio.h<span>{'>'}</span>
-					<br></br>
-					int main()
-					<br /> <span>{'{'}</span>
-					<br></br>
-					#pragma omp parallel<br></br>
-					printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(),
-					omp_get_num_threads());<br></br>
-					<span>{'}'}</span>
+					{code}
 				</div>
 				<div
 					id='output'
@@ -90,21 +92,20 @@ function Tutorial() {
 					style={{ display: 'none', margin: '20px 0' }}
 				>
 					<h3 style={{ color: 'white', margin: '10px 0' }}>Output</h3>
-					<p>Hello from thread 0, nthreads 4</p>
-					<p>Hello from thread 2, nthreads 4</p>
-					<p>Hello from thread 3, nthreads 4</p>
-					<p>Hello from thread 1, nthreads 4</p>
+					{testcases &&
+						testcases.map((item) => (
+							<>
+								<p>Input : {item.input}</p>
+								<p>Output : {item.output}</p>
+							</>
+						))}
 				</div>
 				<div className='topic__desc'>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-						fugiat tenetur nisi ducimus exercitationem a quasi similique
-						temporibus quibusdam.
-					</p>
+					<p>{theory}</p>
 				</div>
 			</div>
 		</div>
 	)
 }
 
-export default Tutorial
+export default React.memo(Tutorial)

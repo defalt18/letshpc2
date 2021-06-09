@@ -38,5 +38,7 @@
     width: calc(100% - 20px);
     color: lightblue;
     padding: 10px;
+    font-family: "PT Mono";
+    font-size: large;
     position: relative;
 }

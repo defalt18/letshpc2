@@ -1,9 +1,10 @@
 import React from 'react'
 import SaveIcon from '@material-ui/icons/Save'
-import plot_img from './sample_plot.png'
+import plot_img from '../../../sample_plot.png'
 import { IconButton } from '@material-ui/core'
 import './Report.css'
 import _map from 'lodash/map'
+import Page from './Page'
 
 function Report({ func }) {
 	const [Class, setClass] = React.useState('report__page')
@@ -41,16 +42,9 @@ function Report({ func }) {
 			</div>
 			<div class='paper__show'>
 				{Array(2)
-					.fill()
-					.map((_, i) => (
-						<div class='a4-sheet'>
-							<h2>
-								Lets HPC Question Bank <br /> DAIICT
-							</h2>
-							{_map(Images, (img, index) => (
-								<img key={index} src={img} alt='' class='report__images' />
-							))}
-						</div>
+					.fill(0)
+					.map((_, pageNumber) => (
+						<Page key={pageNumber} images={Images} />
 					))}
 			</div>
 		</div>

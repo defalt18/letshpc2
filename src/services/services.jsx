@@ -1,4 +1,9 @@
-import { User } from '../types/data_types'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../slices/userSlice'
+import axios from 'axios'
+import _reduce from 'lodash/reduce'
+
+const BASE_URL = 'http://localhost:8000/api'
 
 function validateEmail(email) {
 	const re =
@@ -6,21 +11,22 @@ function validateEmail(email) {
 	return re.test(String(email).toLowerCase())
 }
 
-export const SignIn = (credentials) => {
-	const { email, password } = credentials
+export const SignIn = async (credentials) => {
+	const { userName, password } = credentials
 
-	if (email === '' || !validateEmail(email))
-		return { status: 'Please enter valid email' }
+	if (userName === '') return { status: 'Please enter your username' }
 	if (password === '') return { status: 'Password is incorrect' }
 
-	return { user: User, status: 'Successful' }
+	const result = await axios.post(`${BASE_URL}/signin`, credentials)
+	return { user: result.data.user, status: result.data.message }
 }
 
-export const Register = (details) => {
-	const { username, email, name, password, cpass } = details
+export const Register = async (details) => {
+	const { userName, email, firstName, lastName, password, cpass } = details
 
-	if (username === '') return { status: 'Please enter a username' }
-	if (name === '') return { status: 'Please enter a name' }
+	if (userName === '') return { status: 'Please enter a username' }
+	if (firstName === '') return { status: 'Please enter a first name' }
+	if (lastName === '') return { status: 'Please enter a last name' }
 	if (
 		email === '' ||
 		!validateEmail(email) ||
@@ -33,12 +39,42 @@ export const Register = (details) => {
 		return { status: "Confirm password and password don't match" }
 
 	const user = {
-		...User,
 		email: email,
-		firstName: name,
-		studentID: email.slice(0, 9),
-		username: username
+		firstName: firstName,
+		lastName: lastName,
+		userName: userName,
+		password: password
 	}
 
-	return { user: user, status: 'Successful' }
+	const result = await axios.post(`${BASE_URL}/signup`, user)
+	return { user: result.data.user, status: result.data.message }
+}
+
+export const updateUserProfile = async (user) => {
+	return await axios.post(`${BASE_URL}/updateProfile`, user)
+}
+
+export const fetchTutorialByIds = (tutorialIds) => {
+	let data = []
+	return _reduce(
+		tutorialIds,
+		async (_, tutorial) => {
+			const result = await axios.get(`${BASE_URL}/tutorial/${tutorial}`)
+			data = [...data, result.data.tutorial]
+			return data
+		},
+		[]
+	)
+}
+
+export const fetchAllTutorials = async () => {
+	return await axios.get(`${BASE_URL}/tutorial`)
+}
+
+export const signOutUserFromDatabase = async () => {
+	return await axios.get(`${BASE_URL}/signout`)
+}
+
+export const useUser = () => {
+	return useSelector(selectUser).user
 }

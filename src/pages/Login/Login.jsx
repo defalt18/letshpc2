@@ -5,17 +5,24 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import * as services from '../../services/services'
 import './Login.css'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../slices/userSlice'
+import logo from '../../Letshpc.png'
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
+import { IconButton } from '@material-ui/core'
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant='filled' {...props} />
 }
 
+const SUCCESS = 'Successful'
 function Login() {
 	const history = useHistory()
+	const dispatch = useDispatch()
 	const [page, setpage] = React.useState(1)
 
 	const [login, setlogin] = React.useState({
-		email: '',
+		userName: '',
 		password: ''
 	})
 
@@ -34,17 +41,18 @@ function Login() {
 		setOpen(false)
 	}
 
-	const [signup, setsignup] = React.useState({
-		username: '',
+	const [signup, setSignUp] = React.useState({
+		userName: '',
 		email: '',
-		name: '',
+		lastName: '',
+		firstName: '',
 		password: '',
 		cpass: ''
 	})
 
 	const handleSignupChanges = (e) => {
 		const { name, value } = e.target
-		setsignup({ ...signup, [name]: value })
+		setSignUp({ ...signup, [name]: value })
 	}
 
 	const handleLoginChanges = (e) => {
@@ -52,12 +60,16 @@ function Login() {
 		setlogin({ ...login, [name]: value })
 	}
 
-	const Authorize = (action) => {
+	const Authorize = async (action) => {
 		const { user, status } =
-			action === 'login' ? services.SignIn(login) : services.Register(signup)
-		if (status === 'Successful')
-			history.push('/dashboard', { details: JSON.stringify(user) })
-		else {
+			action === 'login'
+				? await services.SignIn(login)
+				: await services.Register(signup)
+
+		if (status === SUCCESS) {
+			dispatch(setUser({ user }))
+			history.push('/dashboard')
+		} else {
 			seterror(status)
 			handleClick()
 		}
@@ -65,20 +77,23 @@ function Login() {
 
 	return (
 		<div class='login__page'>
+			<IconButton id='home' onClick={() => history.push('/')}>
+				<HomeOutlinedIcon />
+			</IconButton>
 			{page ? (
 				<div class='login__box'>
 					<h2>Login to LetsHPC</h2>
-					<label htmlFor='email'>Email</label>
+					<label htmlFor='email'>Username</label>
 					<input
 						type='text'
-						name='email'
+						name='userName'
 						id='email'
 						onChange={handleLoginChanges}
-						placeholder='201xxxxxx@daiict.ac.in'
+						placeholder='Username'
 					/>
 					<label htmlFor='password'>Password</label>
 					<input
-						type='text'
+						type='password'
 						name='password'
 						id='password'
 						onChange={handleLoginChanges}
@@ -105,57 +120,70 @@ function Login() {
 					</Snackbar>
 				</div>
 			) : (
-				<div className='login__box'>
-					<h2>Sign Up to LetsHPC</h2>
-					<label htmlFor='username'>Username</label>
-					<input
-						type='text'
-						name='username'
-						id='username'
-						onChange={handleSignupChanges}
-						placeholder='Username'
-					/>
-					<label htmlFor='name'>Name</label>
-					<input
-						type='text'
-						name='name'
-						id='name'
-						onChange={handleSignupChanges}
-						placeholder='John Doe'
-					/>
-					<label htmlFor='name'>Email</label>
-					<input
-						type='text'
-						name='email'
-						id='name'
-						onChange={handleSignupChanges}
-						placeholder='...@daiict.ac.in'
-					/>
-					<label htmlFor='password'>Password</label>
-					<input
-						type='text'
-						name='password'
-						id='password'
-						onChange={handleSignupChanges}
-						placeholder='Password'
-					/>
-					<label htmlFor='cpass'>Confirm Password</label>
-					<input
-						type='text'
-						name='cpass'
-						id='cpass'
-						onChange={handleSignupChanges}
-						placeholder='Confirm Password'
-					/>
-					<Button id='loginbut' onClick={() => Authorize('register')}>
-						Sign Up
-					</Button>
-					<p>
-						Already have an account?{' '}
-						<u style={{ cursor: 'pointer' }} onClick={() => setpage(1)}>
-							Login
-						</u>
-					</p>
+				<div className='signupFlex'>
+					<div className='signupBox'>
+						<img src={logo} alt={'letshpc'} />
+						<h2>Sign Up to LetsHPC</h2>
+						<p>
+							Already have an account?{' '}
+							<u style={{ cursor: 'pointer' }} onClick={() => setpage(1)}>
+								Login
+							</u>
+						</p>
+					</div>
+					<div className='login__box' style={{ flexBasis: '50%' }}>
+						<label htmlFor='username'>Username</label>
+						<input
+							type='text'
+							name='userName'
+							id='username'
+							onChange={handleSignupChanges}
+							placeholder='Username'
+						/>
+						<label htmlFor='name'>First Name</label>
+						<input
+							type='text'
+							name='firstName'
+							id='name'
+							onChange={handleSignupChanges}
+							placeholder='John'
+						/>
+						<label htmlFor='name'>Last Name</label>
+						<input
+							type='text'
+							name='lastName'
+							id='name'
+							onChange={handleSignupChanges}
+							placeholder='Doe'
+						/>
+						<label htmlFor='name'>Email</label>
+						<input
+							type='text'
+							name='email'
+							id='name'
+							onChange={handleSignupChanges}
+							placeholder='...@daiict.ac.in'
+						/>
+						<label htmlFor='password'>Password</label>
+						<input
+							type='password'
+							name='password'
+							id='password'
+							onChange={handleSignupChanges}
+							placeholder='Password'
+						/>
+						<label htmlFor='cpass'>Confirm Password</label>
+						<input
+							type='password'
+							name='cpass'
+							id='cpass'
+							onChange={handleSignupChanges}
+							placeholder='Confirm Password'
+						/>
+						<Button id='loginbut' onClick={() => Authorize('register')}>
+							Sign Up
+						</Button>
+					</div>
 					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 						<Alert onClose={handleClose} severity='error'>
 							{error}

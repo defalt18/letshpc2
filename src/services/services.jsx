@@ -54,13 +54,13 @@ export const updateUserProfile = async (user) => {
 	return await axios.post(`${BASE_URL}/updateProfile`, user)
 }
 
-export const fetchTutorialByIds = (tutorialIds) => {
+export const fetchTutorialByIds = async (tutorialIds) => {
 	let data = []
-	return _reduce(
+	return await _reduce(
 		tutorialIds,
-		async (_, tutorial) => {
-			const result = await axios.get(`${BASE_URL}/tutorial/${tutorial}`)
-			data = [...data, result.data.tutorial]
+		async (_, id) => {
+			const newTutorial = await axios.get(`${BASE_URL}/tutorial/${id}`)
+			data = [...data, newTutorial.data.tutorial]
 			return data
 		},
 		[]

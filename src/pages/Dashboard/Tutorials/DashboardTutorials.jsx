@@ -20,10 +20,7 @@ function DashboardTutorials({ user }) {
 		setTutorials(result)
 	}, [setTutorials, savedTutorials])
 
-	useEffect(
-		() => getSavedTutorials(),
-		[user.savedTutorials.length, getSavedTutorials]
-	)
+	useEffect(() => getSavedTutorials(), [getSavedTutorials])
 
 	const chipColor = {
 		beginner: 'green',
@@ -33,10 +30,10 @@ function DashboardTutorials({ user }) {
 
 	const removeTutorial = useCallback(
 		async (id) => {
-			_remove(user.savedTutorials, (item) => item == id) // eslint-disable-line
-			const updateUser = { ...user, savedTutorials: user.savedTutorials }
-			const result = await updateUserProfile(updateUser)
-			dispatch(setUser({ user: result.data.user }))
+			const tutorialArray = _remove([...user.savedTutorials],item=> item !== id) // eslint-disable-line
+			const updateUser = { ...user, savedTutorials: tutorialArray }
+			await updateUserProfile(updateUser)
+			dispatch(setUser({ user: updateUser }))
 		},
 		[dispatch, user]
 	)
@@ -68,7 +65,7 @@ function DashboardTutorials({ user }) {
 								<Chip
 									variant='outlined'
 									size='small'
-									label={item.level[0].toUpperCase() + item.level.slice(1)}
+									label={item.level[0].toUpperCase() + item?.level.slice(1)}
 									style={{
 										color: chipColor[item.level],
 										borderColor: chipColor[item.level]

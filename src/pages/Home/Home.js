@@ -93,7 +93,7 @@ export default function Home() {
 						display: 'flex',
 						alignItems: 'center',
 						background: '#1c2125',
-						padding: '5px 20px'
+						padding: '10px 20px'
 					}}
 				>
 					<h3>{user.firstName}</h3>

@@ -10,6 +10,7 @@ import { setUser } from '../../slices/userSlice'
 import logo from '../../Letshpc.png'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import { IconButton } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant='filled' {...props} />
@@ -28,6 +29,7 @@ function Login() {
 
 	const [error, seterror] = React.useState('')
 	const [open, setOpen] = React.useState(false)
+	const [loading, setLoading] = React.useState(false)
 
 	const handleClick = () => {
 		setOpen(true)
@@ -61,6 +63,7 @@ function Login() {
 	}
 
 	const Authorize = async (action) => {
+		setLoading(true)
 		const { user, status } =
 			action === 'login'
 				? await services.SignIn(login)
@@ -73,6 +76,7 @@ function Login() {
 			seterror(status)
 			handleClick()
 		}
+		setLoading(false)
 	}
 
 	return (
@@ -100,7 +104,11 @@ function Login() {
 						placeholder='Password'
 					/>
 					<Button id='loginbut' onClick={() => Authorize('login')}>
-						Login
+						{loading ? (
+							<CircularProgress size={30} style={{ color: 'white' }} />
+						) : (
+							'Login'
+						)}
 					</Button>
 					<p>
 						Don't have an account yet?{' '}
@@ -181,7 +189,11 @@ function Login() {
 							placeholder='Confirm Password'
 						/>
 						<Button id='loginbut' onClick={() => Authorize('register')}>
-							Sign Up
+							{loading ? (
+								<CircularProgress size={30} style={{ color: 'white' }} />
+							) : (
+								'Signup'
+							)}
 						</Button>
 					</div>
 					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

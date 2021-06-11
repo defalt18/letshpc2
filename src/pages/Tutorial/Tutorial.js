@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import './tut.css'
 import Button from '@material-ui/core/Button'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -7,6 +7,12 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import { IconButton } from '@material-ui/core'
 import SshModal from '../../components/Modal/SshModal'
 import { useHistory } from 'react-router-dom'
+import DoneAllRoundedIcon from '@material-ui/icons/DoneAllRounded'
+import Tooltip from '@material-ui/core/Tooltip'
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
+import { updateUserProfile, useUser } from '../../services/services'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../slices/userSlice'
 
 const chipColor = {
 	beginner: 'green',
@@ -16,6 +22,8 @@ const chipColor = {
 
 function Tutorial(props) {
 	const history = useHistory()
+	const dispatch = useDispatch()
+	const user = useUser()
 
 	const { state = { details: '{}' } } = props.location
 	const {
@@ -25,9 +33,27 @@ function Tutorial(props) {
 			'fugit impedit, iusto magnam maiores minus modi nihil perferendis, quis quo sed soluta tempora?',
 		code,
 		testcases = [],
-		level = 'beginner'
+		level = 'beginner',
+		_id = null
 	} = JSON.parse(state.details)
 
+	const [complete, setComplete] = useState(
+		() => user.completedTutorials.includes(_id) > 0
+	)
+
+	const markComplete = useCallback(async () => {
+		const tutorialList = user.completedTutorials
+		const updatedUser = {
+			...user,
+			completedTutorials: [...tutorialList, { id: _id, time: Date.now() }]
+		}
+		await updateUserProfile(updatedUser)
+		dispatch(setUser({ user: updatedUser }))
+		setComplete(true)
+		alert('Tutorial marked as completed')
+	}, [user, _id, dispatch])
+
+	console.log(user)
 	return (
 		<div className='tutorials__page'>
 			<div className='tut__head'>
@@ -45,6 +71,22 @@ function Tutorial(props) {
 					label={level[0].toUpperCase() + level.slice(1)}
 					style={{ color: chipColor[level], borderColor: chipColor[level] }}
 				/>
+				{!complete ? (
+					<Tooltip title='Mark as completed'>
+						<IconButton
+							onClick={markComplete}
+							style={{ marginLeft: 'auto', color: 'rgb(0,200,150)' }}
+						>
+							<DoneAllRoundedIcon />
+						</IconButton>
+					</Tooltip>
+				) : (
+					<Tooltip title='Tutorial marked as completed'>
+						<IconButton style={{ marginLeft: 'auto', color: 'rgb(0,150,250)' }}>
+							<AssignmentTurnedInIcon />
+						</IconButton>
+					</Tooltip>
+				)}
 			</div>
 			<div className='content__window'>
 				<h1># {title}</h1>

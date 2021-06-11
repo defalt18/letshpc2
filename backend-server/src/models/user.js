@@ -59,8 +59,8 @@ const userSchema = require('mongoose').Schema(
 		],
 		completedTutorials: [
 			{
-				type: String,
-				default: []
+				id: { type: String },
+				time: { type: Date }
 			}
 		],
 		report: {

@@ -44,6 +44,10 @@ app.use('/api', tutorialRoutes)
 //     });
 // });
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('../../build'))
+}
+
 // for error
 app.use((req, res, next) => {
 	const error = new Error('Not Found')

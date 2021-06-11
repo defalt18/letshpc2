@@ -4,6 +4,7 @@ import axios from 'axios'
 import _reduce from 'lodash/reduce'
 
 const BASE_URL = 'http://localhost:8000/api'
+// const BASE_URL = 'http://192.168.1.16:8000/api'
 
 function validateEmail(email) {
 	const re =

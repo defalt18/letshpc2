@@ -20,7 +20,7 @@ function Sidebar({ page, setPage, user }) {
 	return (
 		<div className='sidebar'>
 			<h2>Dashboard</h2>
-			{user.role === 'Professor' ? (
+			{user?.role === 'Professor' ? (
 				<>
 					<h3
 						style={{ color: `${page === 0 ? 'white' : 'gray'}` }}

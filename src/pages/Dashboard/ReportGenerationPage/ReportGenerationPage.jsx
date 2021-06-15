@@ -2,7 +2,7 @@ import React from 'react'
 import Chip from '@material-ui/core/Chip'
 import Report from './components/Report/Report'
 
-function ReportGenerationPage(props) {
+function ReportGenerationPage({ user }) {
 	const [doc, setDoc] = React.useState(false)
 	return (
 		<div className='page'>
@@ -35,7 +35,7 @@ function ReportGenerationPage(props) {
 					/>
 				</div>
 			</div>
-			{doc && <Report func={setDoc} />}
+			{doc && <Report func={setDoc} user={user} />}
 		</div>
 	)
 }

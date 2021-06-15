@@ -16,8 +16,8 @@ function Dashboard() {
 		<div className='dashboard__home'>
 			<Sidebar page={page} setPage={setPage} user={user} />
 			{page === 0 ? <DashboardTutorials user={user} /> : null}
-			{page === 1 ? <ReportGenerationPage /> : null}
-			{page === 2 ? <DataVisualisationPage /> : null}
+			{page === 1 ? <ReportGenerationPage user={user} /> : null}
+			{page === 2 ? <DataVisualisationPage user={user} /> : null}
 			{page === 3 ? <UserProfile user={user} /> : null}
 		</div>
 	)

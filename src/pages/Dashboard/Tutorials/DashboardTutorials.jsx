@@ -67,7 +67,7 @@ function DashboardTutorials({ user }) {
 				)}
 				{tutorials.length > 0 ? (
 					_map(tutorials, (item, index) => (
-						<div className='tutorial__item'>
+						<div key={index} className='tutorial__item'>
 							<div
 								style={{
 									display: 'flex',
@@ -120,7 +120,7 @@ function DashboardTutorials({ user }) {
 					</div>
 				)}
 			</div>
-			<p
+			<div
 				style={{
 					fontSize: 23,
 					fontWeight: 'bold',
@@ -131,18 +131,17 @@ function DashboardTutorials({ user }) {
 			>
 				<p>Completed Tutorials</p>
 				<CheckRounded
-					fontSize={'medium'}
 					style={{
 						background: 'linear-gradient(90deg, green, darkgreen)',
 						padding: 5,
 						borderRadius: '50%'
 					}}
 				/>{' '}
-			</p>
+			</div>
 			<div className='tutorial__list'>
 				{completed.length > 0 ? (
 					_map(completed, (item, index) => (
-						<div className='tutorial__item'>
+						<div key={index} className='tutorial__item'>
 							<div
 								style={{
 									display: 'flex',

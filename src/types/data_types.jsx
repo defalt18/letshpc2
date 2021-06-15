@@ -5,7 +5,7 @@ export const UserRole = {
 }
 // default new user
 export const User = {
-	id: '',
+	_id: '',
 	firstName: '',
 	lastName: '',
 	bio: '',
@@ -13,32 +13,34 @@ export const User = {
 	studentID: '',
 	username: '',
 	email: '',
-	savedTutorials: Array,
-	completedTutorials: Array,
+	savedTutorials: [],
+	completedTutorials: [],
 	report: {
-		questionsAttempted: Array
+		questionsAttempted: []
 	},
-	savedPlots: Array,
+	savedPlots: [],
 	role: UserRole.STUDENT
 }
 
 // as ENUM
 export const Level = {
-	EASY: 'Beginner',
-	MEDIUM: 'Medium',
-	HARD: 'Advance'
+	EASY: 'beginner',
+	MEDIUM: 'medium',
+	HARD: 'advance'
 }
 
-export const Tutorial = {
-	id: '',
+export const Tutorial_Default = {
+	_id: null,
 	firebaseFileName: '', // which will be downloaded from server
-	title: '',
-	tags: Array,
+	title: 'This is a dummy tutorial',
+	tags: [],
 	level: Level.EASY,
-	isCompleted: false,
-	code: '',
-	testcases: Array,
-	theory: ''
+	code: 'printf("Hello and please go back!")',
+	testcases: [{ input: 'Please go back', output: 'An error occured' }],
+	theory:
+		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam cumque cupiditate ' +
+		'dicta eaque eius enim exercitationem ' +
+		'fugit impedit, iusto magnam maiores minus modi nihil perferendis, quis quo sed soluta tempora?'
 }
 
 // Report question

@@ -13,6 +13,7 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import { updateUserProfile, useUser } from '../../services/services'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../slices/userSlice'
+import { Tutorial_Default } from '../../types/data_types'
 
 const chipColor = {
 	beginner: 'green',
@@ -25,17 +26,9 @@ function Tutorial(props) {
 	const dispatch = useDispatch()
 	const user = useUser()
 
-	const { state = { details: '{}' } } = props.location
-	const {
-		title = 'Sample Thread Exercise',
-		theory = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam cumque cupiditate ' +
-			'dicta eaque eius enim exercitationem ' +
-			'fugit impedit, iusto magnam maiores minus modi nihil perferendis, quis quo sed soluta tempora?',
-		code,
-		testcases = [],
-		level = 'beginner',
-		_id = null
-	} = JSON.parse(state.details)
+	const { state = { details: null } } = props.location
+	const { _id, code, theory, testcases, title, level } =
+		JSON.parse(state.details) || Tutorial_Default
 
 	const [complete, setComplete] = useState(
 		() => user.completedTutorials.includes(_id) > 0
@@ -71,22 +64,26 @@ function Tutorial(props) {
 					label={level[0].toUpperCase() + level.slice(1)}
 					style={{ color: chipColor[level], borderColor: chipColor[level] }}
 				/>
-				{!complete ? (
-					<Tooltip title='Mark as completed'>
-						<IconButton
-							onClick={markComplete}
-							style={{ marginLeft: 'auto', color: 'rgb(0,200,150)' }}
-						>
-							<DoneAllRoundedIcon />
-						</IconButton>
-					</Tooltip>
-				) : (
-					<Tooltip title='Tutorial marked as completed'>
-						<IconButton style={{ marginLeft: 'auto', color: 'rgb(0,150,250)' }}>
-							<AssignmentTurnedInIcon />
-						</IconButton>
-					</Tooltip>
-				)}
+				{_id ? (
+					!complete ? (
+						<Tooltip title='Mark as completed'>
+							<IconButton
+								onClick={markComplete}
+								style={{ marginLeft: 'auto', color: 'rgb(0,200,150)' }}
+							>
+								<DoneAllRoundedIcon />
+							</IconButton>
+						</Tooltip>
+					) : (
+						<Tooltip title='Tutorial marked as completed'>
+							<IconButton
+								style={{ marginLeft: 'auto', color: 'rgb(0,150,250)' }}
+							>
+								<AssignmentTurnedInIcon />
+							</IconButton>
+						</Tooltip>
+					)
+				) : null}
 			</div>
 			<div className='content__window'>
 				<h1># {title}</h1>

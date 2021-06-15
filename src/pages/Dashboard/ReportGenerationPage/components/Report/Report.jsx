@@ -1,12 +1,11 @@
 import React from 'react'
 import SaveIcon from '@material-ui/icons/Save'
-import plot_img from '../../../sample_plot.png'
 import { IconButton } from '@material-ui/core'
 import './Report.css'
 import _map from 'lodash/map'
 import Page from './Page'
 
-function Report({ func }) {
+function Report({ user, func }) {
 	const [Class, setClass] = React.useState('report__page')
 	const [Images, setImages] = React.useState([])
 
@@ -25,17 +24,17 @@ function Report({ func }) {
 			</IconButton>
 			<div class='recent__plots'>
 				<h2 className='header__side'>Generated Plots</h2>
-				{_map(Array(5).fill(plot_img), (_, i) => (
+				{_map(user?.savedPlots, (item, index) => (
 					<div
-						key={i}
+						key={index}
 						onClick={() => {
-							setImages([...Images, plot_img])
+							setImages([...Images, item.image])
 						}}
 						class='plot'
 						id='plot__side'
 					>
-						<img src={_} alt='' />
-						<h2>Figure {i + 1}</h2>
+						<img src={item.image} alt='' />
+						<h2>Figure {index + 1}</h2>
 						<p>Figure name goes here</p>
 					</div>
 				))}

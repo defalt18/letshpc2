@@ -1,6 +1,8 @@
+//for password hashing
+const bcrypt = require('bcryptjs')
+
 const User = require('../models/user')
 const jwt = require('jsonwebtoken') //for user token
-const bcrypt = require('bcryptjs') //for password hashing
 
 const SUCCESS = 'Successful'
 
@@ -10,13 +12,11 @@ const KEY =
 exports.signUp = (req, res) => {
 	const { firstName, lastName, email, password, userName } = req.body
 	User.findOne({ email: email }).exec(async (err, user) => {
-		if (err)
-			return res
-				.status(400)
-				.json({ message: 'something went wrong ', error: err })
+		if (err) return res.status(200).json({ message: err, user: null })
 		if (user)
-			return res.status(400).json({
-				message: 'User already exists'
+			return res.status(200).json({
+				message: 'User already exists',
+				user: null
 			})
 
 		const hashPassword = await bcrypt.hash(password, 10)
@@ -31,9 +31,7 @@ exports.signUp = (req, res) => {
 
 		_user.save((error, data) => {
 			if (error) {
-				return res
-					.status(400)
-					.json({ message: 'Something went wrong', error: error })
+				return res.status(200).json({ message: error, user: null })
 			}
 
 			if (data) {
@@ -43,36 +41,37 @@ exports.signUp = (req, res) => {
 	})
 }
 
-exports.signIn = (req, res) => {
+exports.signIn = async (req, res) => {
 	const { userName, password } = req.body
-	User.findOne({ userName: userName }).exec((err, user) => {
-		if (err) {
-			return res.status(400).json({ error: err })
-		}
-		if (user) {
-			if (user.authenticate(password) && user.role === 'Student') {
-				//  send token for authorization
-				const token = jwt.sign(
-					{ _id: user._id, role: user.role },
-					process.env.JWT_SECRET || KEY,
-					{
-						expiresIn: '2d'
-					}
-				)
+	const user = await User.findOne({ userName: userName })
+	if (user) {
+		const match = await bcrypt.compare(password, user.hashPassword)
+		if (match && user.role === 'Student') {
+			const token = jwt.sign(
+				{ _id: user._id, role: user.role },
+				process.env.JWT_SECRET || KEY,
+				{
+					expiresIn: '2d'
+				}
+			)
 
-				// const { _id, firstName, lastName, email, role, userName } = user
-				res.status(200).json({
-					token,
-					message: SUCCESS,
-					user: user
-				})
-			} else {
-				return res.status(400).json({ message: 'Invalid Password' })
-			}
+			res.status(200).json({
+				token,
+				message: SUCCESS,
+				user: user
+			})
 		} else {
-			return res.status(400).json({ message: 'Something went wrong' })
+			res.status(200).json({
+				message: 'Wrong credentials',
+				user: null
+			})
 		}
-	})
+	} else {
+		return res.status(200).json({
+			message: 'User not found!',
+			user: null
+		})
+	}
 }
 
 exports.updateProfile = async (request, result) => {

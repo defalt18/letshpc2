@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Line } from 'react-chartjs-2'
 
 const graphOptions = {
@@ -34,24 +34,24 @@ const graphOptions = {
 }
 
 const CreateLineGraph = ({ dataset, setImage }) => {
-	let ref = undefined
+	const ref = useRef()
 
 	return (
 		<Line
 			id={'chart'}
 			data={dataset}
-			ref={(element) => {
-				ref = element
-			}}
+			ref={ref}
 			height='100%'
 			options={{
 				...graphOptions,
 				animation: {
-					onComplete: () => setImage(ref.toBase64Image())
+					onComplete: () => {
+						setTimeout(() => setImage(() => ref.current?.toBase64Image()), 100)
+					}
 				}
 			}}
 		/>
 	)
 }
 
-export default CreateLineGraph
+export default React.memo(CreateLineGraph)

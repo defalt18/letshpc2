@@ -1,8 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert from '@material-ui/lab/Alert'
 import * as services from '../../services/services'
 import './Login.css'
 import { useDispatch } from 'react-redux'
@@ -11,10 +9,8 @@ import logo from '../../Letshpc.png'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import { IconButton } from '@material-ui/core'
 import { CircularProgress } from '@material-ui/core'
-
-function Alert(props) {
-	return <MuiAlert elevation={6} variant='filled' {...props} />
-}
+import 'react-toastify/dist/ReactToastify.css'
+import { toast, ToastContainer } from 'react-toastify'
 
 const SUCCESS = 'Successful'
 function Login() {
@@ -27,20 +23,12 @@ function Login() {
 		password: ''
 	})
 
-	const [error, seterror] = React.useState('')
-	const [open, setOpen] = React.useState(false)
 	const [loading, setLoading] = React.useState(false)
 
-	const handleClick = () => {
-		setOpen(true)
-	}
-
-	const handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return
-		}
-
-		setOpen(false)
+	const notify = (error) => {
+		toast.error(error, {
+			position: toast.POSITION.TOP_RIGHT
+		})
 	}
 
 	const [signup, setSignUp] = React.useState({
@@ -72,10 +60,8 @@ function Login() {
 		if (status === SUCCESS) {
 			dispatch(setUser({ user }))
 			history.push('/dashboard')
-		} else {
-			seterror(status)
-			handleClick()
 		}
+		notify(status)
 		setLoading(false)
 	}
 
@@ -121,11 +107,6 @@ function Login() {
 							Sign Up
 						</u>
 					</p>
-					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-						<Alert onClose={handleClose} severity='error'>
-							{error}
-						</Alert>
-					</Snackbar>
 				</div>
 			) : (
 				<div className='signupFlex'>
@@ -196,13 +177,9 @@ function Login() {
 							)}
 						</Button>
 					</div>
-					<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-						<Alert onClose={handleClose} severity='error'>
-							{error}
-						</Alert>
-					</Snackbar>
 				</div>
 			)}
+			<ToastContainer />
 		</div>
 	)
 }

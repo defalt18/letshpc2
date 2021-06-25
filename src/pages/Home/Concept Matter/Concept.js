@@ -6,18 +6,19 @@ import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded'
 import BookmarkRoundedIcon from '@material-ui/icons/BookmarkRounded'
 import { CircularProgress } from '@material-ui/core'
 import { updateUserProfile, useUser } from '../../../services/services'
+import _find from 'lodash/find'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../slices/userSlice'
 
 function Concept(props) {
 	const user = useUser()
 	const history = useHistory()
-	const { title, theory, level, _id } = props.tutorial
+	const { title, theory, level } = props.tutorial
 	const dispatch = useDispatch()
 
 	const [loading, setLoading] = useState(false)
-	const [clicked, setClicked] = useState(
-		() => user?.savedTutorials.includes(_id) > 0
+	const [clicked, setClicked] = useState(() =>
+		_find(user?.savedTutorials, { tutorial: props.tutorial })
 	)
 
 	const chipColor = {
@@ -37,12 +38,12 @@ function Concept(props) {
 		setLoading(true)
 		const updateUser = {
 			...user,
-			savedTutorials: [...user.savedTutorials, _id]
+			savedTutorials: [...user.savedTutorials, { tutorial: props.tutorial }]
 		}
 		await updateUserProfile(updateUser)
 		dispatch(setUser({ user: updateUser }))
 		setLoading(false)
-	}, [setLoading, dispatch, _id, user])
+	}, [setLoading, dispatch, props.tutorial, user])
 
 	return (
 		<div className='concept__box'>

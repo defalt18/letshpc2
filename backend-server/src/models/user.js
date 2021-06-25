@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const Tutorial = require('./tutorial').schema
 const bcrypt = require('bcryptjs')
 
-const userSchema = require('mongoose').Schema(
+const userSchema = mongoose.Schema(
 	{
 		firstName: {
 			type: String,
@@ -53,13 +54,12 @@ const userSchema = require('mongoose').Schema(
 		},
 		savedTutorials: [
 			{
-				type: String,
-				default: []
+				tutorial: { type: Tutorial }
 			}
 		],
 		completedTutorials: [
 			{
-				id: { type: String },
+				tutorial: { type: Tutorial },
 				time: { type: Date }
 			}
 		],
@@ -71,9 +71,9 @@ const userSchema = require('mongoose').Schema(
 				}
 			]
 		},
+		reportDoc: { type: Object },
 		savedPlots: [
 			{
-				plotName: { type: String },
 				imageURL: { type: String },
 				createDate: { type: Date }
 			}

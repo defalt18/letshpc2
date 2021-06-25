@@ -17,6 +17,8 @@ import { restructureData } from '../../../utils/graph-utils'
 import { updateUserProfile } from '../../../services/services'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../slices/userSlice'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const useSelectStyles = makeStyles(() => ({
 	root: {
@@ -45,6 +47,12 @@ function DataVisualisationPage({ user }) {
 	const [graphData, setData] = React.useState(null)
 	const [modalState, setModalState] = useState(false)
 
+	const notify = () => {
+		toast.success('Graph added to your collection !', {
+			position: toast.POSITION.TOP_RIGHT
+		})
+	}
+
 	const generateGraph = React.useCallback(() => {
 		setLoading(() => 1)
 		const restructuredData = restructureData(dataset, preference)
@@ -62,16 +70,16 @@ function DataVisualisationPage({ user }) {
 
 	const addToCollection = React.useCallback(async () => {
 		setAddLoading(true)
-		const userImages = user.savedPlots
+		const { savedPlots } = user
 		const updatedImages = [
-			...userImages,
-			{ image: graphSnapshot, timestamp: Date.now() }
+			...savedPlots,
+			{ imageURL: graphSnapshot, createDate: Date.now() }
 		]
 		const updatedUser = { ...user, savedPlots: updatedImages }
 		await updateUserProfile(updatedUser)
 		dispatch(setUser({ user: updatedUser }))
-		alert('Image added to collection!')
 		setAddLoading(false)
+		notify()
 	}, [dispatch, user, graphSnapshot, setAddLoading])
 
 	const onClose = () => {
@@ -103,9 +111,10 @@ function DataVisualisationPage({ user }) {
 							className='background-chart'
 							style={{ backgroundColor: 'white' }}
 						>
-							<img src={item.image} alt='' />
+							<img src={item.imageURL} alt='' />
 						</div>
 						<h2>Figure {index + 1}</h2>
+						<p>{new Date(item.createDate).toString().slice(0, 24)}</p>
 					</div>
 				))}
 				<ModalWrapper openModal={modalState}>
@@ -143,9 +152,15 @@ function DataVisualisationPage({ user }) {
 							) : null}
 						</div>
 						{loading === 2 && (
-							<Button id='collectionButton' onClick={addToCollection}>
-								{addLoading && graphSnapshot == null ? (
-									<CircularProgress style={{ color: 'white' }} />
+							<Button
+								id='collectionButton'
+								onClick={addToCollection}
+								disabled={graphSnapshot === null}
+							>
+								{graphSnapshot === null || addLoading ? (
+									<CircularProgress
+										style={{ margin: 'auto', color: 'white' }}
+									/>
 								) : (
 									'Add to your collection'
 								)}
@@ -154,6 +169,7 @@ function DataVisualisationPage({ user }) {
 					</div>
 				</ModalWrapper>
 			</div>
+			<ToastContainer />
 		</div>
 	)
 }

@@ -3,21 +3,52 @@ import SaveIcon from '@material-ui/icons/Save'
 import { IconButton } from '@material-ui/core'
 import './Report.css'
 import _map from 'lodash/map'
-import Page from './Page'
+import TextEditor from './Texteditor'
+import { updateUserProfile } from '../../../../../services/services'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../../../../slices/userSlice'
+import Button from '@material-ui/core/Button'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
 
 function Report({ user, func }) {
 	const [Class, setClass] = React.useState('report__page')
 	const [Images, setImages] = React.useState([])
+	const [reportData, setReportData] = React.useState()
+	const dispatch = useDispatch()
+
+	const notify = () => {
+		toast.success('Changes saved!', {
+			position: toast.POSITION.TOP_RIGHT
+		})
+	}
+
+	const saveOnMongo = async () => {
+		const res = await updateUserProfile({
+			...user,
+			reportDoc: reportData
+		})
+		dispatch(setUser({ user: res.data.user }))
+		notify()
+	}
 
 	return (
 		<div class={Class}>
-			<IconButton
+			<Button
 				id='close_icon'
 				onClick={() => {
 					setClass('report__page__down')
 					setTimeout(() => {
 						func(false)
 					}, 500)
+				}}
+			>
+				Close
+			</Button>
+			<IconButton
+				id='close_icon__save'
+				onClick={async () => {
+					await saveOnMongo()
 				}}
 			>
 				<SaveIcon />
@@ -28,24 +59,25 @@ function Report({ user, func }) {
 					<div
 						key={index}
 						onClick={() => {
-							setImages([...Images, item.image])
+							setImages([...Images, item.imageURL])
 						}}
 						class='plot'
 						id='plot__side'
 					>
-						<img src={item.image} alt='' />
+						<img
+							src={item.imageURL}
+							alt=''
+							style={{ backgroundColor: 'white' }}
+						/>
 						<h2>Figure {index + 1}</h2>
-						<p>Figure name goes here</p>
+						<p>{new Date(item.createDate).toString().slice(0, 24)}</p>
 					</div>
 				))}
 			</div>
 			<div class='paper__show'>
-				{Array(2)
-					.fill(0)
-					.map((_, pageNumber) => (
-						<Page key={pageNumber} images={Images} />
-					))}
+				<TextEditor initialData={user.reportDoc} saveReport={setReportData} />
 			</div>
+			<ToastContainer />
 		</div>
 	)
 }

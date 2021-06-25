@@ -1,4 +1,4 @@
-const Tutorial = require('../models/tutorial')
+const Tutorial = require('../models/tutorial').model
 
 exports.getAllTutorials = (req, res) => {
 	Tutorial.find({}).exec((err, Tutorial) => {

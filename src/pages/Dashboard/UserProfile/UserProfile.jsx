@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { updateUserProfile } from '../../../services/services'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../slices/userSlice'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
 
 const useStyles = makeStyles(() => ({
 	textfields: {
@@ -46,9 +48,16 @@ function UserProfile({ user }) {
 	const dispatch = useDispatch()
 	const [details, updateDetails] = useState(user)
 
+	const notify = () => {
+		toast.success('Profile Updated', {
+			position: toast.POSITION.TOP_RIGHT
+		})
+	}
+
 	const issueUpdate = async () => {
 		const result = await updateUserProfile(details)
 		dispatch(setUser({ user: result.data.user }))
+		notify()
 	}
 
 	const handleUpdates = useCallback(
@@ -180,6 +189,7 @@ function UserProfile({ user }) {
 					</div>
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 	)
 }

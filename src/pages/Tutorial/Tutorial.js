@@ -9,6 +9,7 @@ import SshModal from '../../components/Modal/SshModal'
 import { useHistory } from 'react-router-dom'
 import DoneAllRoundedIcon from '@material-ui/icons/DoneAllRounded'
 import Tooltip from '@material-ui/core/Tooltip'
+import _find from 'lodash/find'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import { updateUserProfile, useUser } from '../../services/services'
 import { useDispatch } from 'react-redux'
@@ -27,26 +28,29 @@ function Tutorial(props) {
 	const user = useUser()
 
 	const { state = { details: null } } = props.location
+	const tutorialDetails = JSON.parse(state.details)
 	const { _id, code, theory, testcases, title, level } =
-		JSON.parse(state.details) || Tutorial_Default
+		tutorialDetails || Tutorial_Default
 
-	const [complete, setComplete] = useState(
-		() => user.completedTutorials.includes(_id) > 0
+	const [complete, setComplete] = useState(() =>
+		_find(user?.completedTutorials, { tutorial: tutorialDetails })
 	)
 
 	const markComplete = useCallback(async () => {
 		const tutorialList = user.completedTutorials
 		const updatedUser = {
 			...user,
-			completedTutorials: [...tutorialList, { id: _id, time: Date.now() }]
+			completedTutorials: [
+				...tutorialList,
+				{ tutorial: tutorialDetails, time: Date.now() }
+			]
 		}
 		await updateUserProfile(updatedUser)
 		dispatch(setUser({ user: updatedUser }))
 		setComplete(true)
 		alert('Tutorial marked as completed')
-	}, [user, _id, dispatch])
+	}, [user, tutorialDetails, dispatch])
 
-	console.log(user)
 	return (
 		<div className='tutorials__page'>
 			<div className='tut__head'>

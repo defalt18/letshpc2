@@ -1,43 +1,25 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import Chip from '@material-ui/core/Chip'
-import {
-	fetchTutorialByIds,
-	updateUserProfile
-} from '../../../services/services'
+import { updateUserProfile } from '../../../services/services'
 import _map from 'lodash/map'
 import _remove from 'lodash/remove'
+import _isEqual from 'lodash/isEqual'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../slices/userSlice'
-import { CircularProgress } from '@material-ui/core'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
 import { CheckRounded } from '@material-ui/icons'
 
 function DashboardTutorials({ user }) {
 	const { savedTutorials, completedTutorials } = user
 	const dispatch = useDispatch()
-	const [loading, setLoading] = useState(true)
-	const [tutorials, setTutorials] = useState([])
-	const [completed, setCompleted] = useState([])
 
-	const getTutorials = useCallback(async () => {
-		const fetchedTutorials = await fetchTutorialByIds(savedTutorials)
-		setTutorials(fetchedTutorials)
-		const fetchedCompletedTutorials = await fetchTutorialByIds(
-			_map(completedTutorials, (tutorial) => tutorial.id)
-		)
-		setCompleted(fetchedCompletedTutorials)
-		setLoading(false)
-	}, [
-		setTutorials,
-		savedTutorials,
-		setCompleted,
-		completedTutorials,
-		setLoading
-	])
-
-	useEffect(() => {
-		getTutorials().then(() => console.log('Tutorials Fetched'))
-	}, [getTutorials])
+	const notify = () => {
+		toast.success('Tutorial removed from the list', {
+			position: toast.POSITION.TOP_RIGHT
+		})
+	}
 
 	const chipColor = {
 		beginner: 'green',
@@ -46,27 +28,22 @@ function DashboardTutorials({ user }) {
 	}
 
 	const removeTutorial = useCallback(
-		async (id) => {
-			const tutorialArray = _remove([...user.savedTutorials],item=> item !== id) // eslint-disable-line
+		async (tutorial) => {
+			const tutorialArray = _remove([...savedTutorials],item=> !_isEqual(item.tutorial, tutorial )) // eslint-disable-line
 			const updateUser = { ...user, savedTutorials: tutorialArray }
 			await updateUserProfile(updateUser)
 			dispatch(setUser({ user: updateUser }))
+			notify()
 		},
-		[dispatch, user]
+		[dispatch, user, savedTutorials]
 	)
 
 	return (
 		<div className='page'>
-			<h2>This is Tutorials Page</h2>
+			<h2>Review Tutorials</h2>
 			<div className='tutorial__list'>
-				{loading && (
-					<CircularProgress
-						size={40}
-						style={{ color: 'white', margin: 'auto' }}
-					/>
-				)}
-				{tutorials.length > 0 ? (
-					_map(tutorials, (item, index) => (
+				{savedTutorials.length > 0 ? (
+					_map(savedTutorials, ({ tutorial }, index) => (
 						<div key={index} className='tutorial__item'>
 							<div
 								style={{
@@ -79,23 +56,25 @@ function DashboardTutorials({ user }) {
 									key={index}
 									to={{
 										pathname: '/tutorials',
-										state: { details: JSON.stringify(item) }
+										state: { details: JSON.stringify(tutorial) }
 									}}
 									style={{ textDecoration: 'none', color: 'lightgray' }}
 								>
-									<h3>{item.title}</h3>
+									<h3>{tutorial?.title}</h3>
 								</Link>
 								<Chip
 									variant='outlined'
 									size='small'
-									label={item.level[0].toUpperCase() + item?.level.slice(1)}
+									label={
+										tutorial?.level[0].toUpperCase() + tutorial?.level.slice(1)
+									}
 									style={{
-										color: chipColor[item.level],
-										borderColor: chipColor[item.level]
+										color: chipColor[tutorial?.level],
+										borderColor: chipColor[tutorial?.level]
 									}}
 								/>
 								<p
-									onClick={() => removeTutorial(item._id)}
+									onClick={() => removeTutorial(tutorial)}
 									style={{
 										marginLeft: 'auto',
 										color: 'lightgreen',
@@ -105,7 +84,7 @@ function DashboardTutorials({ user }) {
 									Mark as Read
 								</p>
 							</div>
-							<p>{item.theory.slice(0, 200)}...</p>
+							<p>{tutorial?.theory.slice(0, 200)}...</p>
 						</div>
 					))
 				) : (
@@ -139,8 +118,8 @@ function DashboardTutorials({ user }) {
 				/>{' '}
 			</div>
 			<div className='tutorial__list'>
-				{completed.length > 0 ? (
-					_map(completed, (item, index) => (
+				{completedTutorials.length > 0 ? (
+					_map(completedTutorials, ({ tutorial, time }, index) => (
 						<div key={index} className='tutorial__item'>
 							<div
 								style={{
@@ -153,26 +132,28 @@ function DashboardTutorials({ user }) {
 									key={index}
 									to={{
 										pathname: '/tutorials',
-										state: { details: JSON.stringify(item) }
+										state: { details: JSON.stringify(tutorial) }
 									}}
 									style={{ textDecoration: 'none', color: 'lightgray' }}
 								>
-									<h3>{item.title}</h3>
+									<h3>{tutorial?.title}</h3>
 								</Link>
 								<Chip
 									variant='outlined'
 									size='small'
-									label={item.level[0].toUpperCase() + item?.level.slice(1)}
+									label={
+										tutorial?.level[0].toUpperCase() + tutorial?.level.slice(1)
+									}
 									style={{
-										color: chipColor[item.level],
-										borderColor: chipColor[item.level]
+										color: chipColor[tutorial?.level],
+										borderColor: chipColor[tutorial?.level]
 									}}
 								/>
 							</div>
-							<p>{item.theory.slice(0, 200)}...</p>
+							<p>{tutorial?.theory.slice(0, 200)}...</p>
 							<p>
-								<span style={{ color: 'lightgreen' }}>Completed at</span> :{' '}
-								{Date(completedTutorials[index].time)}
+								<span style={{ color: 'lightgreen' }}>Completed on</span> :{' '}
+								{Date(time)}
 							</p>
 						</div>
 					))
@@ -188,6 +169,7 @@ function DashboardTutorials({ user }) {
 					</div>
 				)}
 			</div>
+			<ToastContainer />
 		</div>
 	)
 }

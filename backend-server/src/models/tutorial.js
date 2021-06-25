@@ -43,4 +43,7 @@ const tutorialSchema = require('mongoose').Schema(
 	{ timestamps: true }
 )
 
-module.exports = new mongoose.model('Tutorial', tutorialSchema)
+module.exports = {
+	schema: tutorialSchema,
+	model: new mongoose.model('Tutorial', tutorialSchema)
+}

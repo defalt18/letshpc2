@@ -3,6 +3,7 @@
     width: 100vw;
     background: #1d2024;
     color: white;
+    padding-bottom: 50px;
 }
 .tut__head{
     position: sticky;

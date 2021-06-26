@@ -1,4 +1,5 @@
 const Tutorial = require('../../models/tutorial').model
+const mongo = require('mongoose')
 
 exports.createTutorial = (req, res) => {
 	const { title, theory, code, level, tags, testcases } = req.body
@@ -58,7 +59,7 @@ exports.editTutorial = (req, res) => {
 	})
 }
 
-exports.deleteTutorial = (request, response) => {
+exports.deleteTutorialById = (request, response) => {
 	const { _id } = request.body
 	Tutorial.deleteOne(
 		{

@@ -4,7 +4,14 @@ const BASE_URL = 'http://localhost:8000/api'
 // const BASE_URL = 'http://192.168.1.16:8000/api'
 
 export const createTutorial = async (tutorial) => {
-	const result = await axios.post(`${BASE_URL}/admin/tutorial/create`, tutorial)
+	const newTutorial = {
+		...tutorial,
+		testcases: [{ input: tutorial.input, output: tutorial.output }]
+	}
+	const result = await axios.post(
+		`${BASE_URL}/admin/tutorial/create`,
+		newTutorial
+	)
 	return result.data.message
 }
 

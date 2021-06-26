@@ -11,3 +11,9 @@ exports.adminMiddleware = (req, res, next) => {
 	}
 	next()
 }
+exports.TAMiddleware = (req, res, next) => {
+	if (req.user.role !== 'TA') {
+		return res.status(400).json({ message: 'Access denied' })
+	}
+	next()
+}

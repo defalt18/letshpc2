@@ -1,16 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { fetchAllUsers } from '../../../services/admin-services'
 import _map from 'lodash/map'
+import { useAsync } from 'react-use'
 
 function AllStudents() {
-	const [allUsers, setUsers] = useState([])
+	const { value: response } = useAsync(() => fetchAllUsers())
 
-	const fetchAllContent = useCallback(async () => {
-		const result = await fetchAllUsers()
-		setUsers(result.data.users)
-	}, [setUsers])
-
-	useEffect(() => fetchAllContent(), [fetchAllContent])
 	return (
 		<div className='admin__content'>
 			<h1 style={{ marginBottom: '40px' }}>All Students</h1>
@@ -22,7 +17,7 @@ function AllStudents() {
 					<th>Username</th>
 				</tr>
 				{_map(
-					allUsers,
+					response?.data.users,
 					(item, index) =>
 						item.role === 'Student' && (
 							<tr key={index}>

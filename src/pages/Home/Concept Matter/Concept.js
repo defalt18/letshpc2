@@ -47,7 +47,9 @@ function Concept(props) {
 
 	return (
 		<div className='concept__box'>
-			<h2 style={{ color: 'rgba(0,150,255)' }}>{title}</h2>
+			<h2 style={{ color: 'rgba(0,150,255)', marginBottom: 10 }}>
+				{title.slice(0, 30)} {title.length > 30 ? '...' : null}
+			</h2>
 			<Chip
 				variant='outlined'
 				size='small'
@@ -55,10 +57,11 @@ function Concept(props) {
 				style={{
 					color: chipColor[level],
 					borderColor: chipColor[level],
-					maxWidth: '90px'
+					maxWidth: '90px',
+					marginBottom: 5
 				}}
 			/>
-			<p>{theory.slice(0, 100)}...</p>
+			<p dangerouslySetInnerHTML={{ __html: `${theory.slice(0, 100)}...` }} />
 			<div className='info'>
 				{user &&
 					user.role === 'Student' &&

@@ -1,10 +1,19 @@
-import React, { useCallback, useState } from 'react'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize'
+import React, { useCallback, useMemo, useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
+import './CreateTutorial.css'
+
 import { createTutorial } from '../../../services/admin-services'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import { EditorState } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
+import { convertToHTML } from 'draft-convert'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const useStyles = makeStyles(() => ({
 	textfields: {
@@ -46,13 +55,21 @@ function CreateTutorials() {
 		theory: '',
 		code: '',
 		level: 'beginner',
+		input: '',
+		output: '',
 		tags: Array,
 		testcases: Array
 	})
 
+	const notify = () => {
+		toast.success('Tutorial added to collection !', {
+			position: toast.POSITION.TOP_RIGHT
+		})
+	}
+
 	const issueAddition = useCallback(async () => {
-		const result = await createTutorial(tutorial)
-		alert(result)
+		await createTutorial(tutorial)
+		notify()
 	}, [tutorial])
 
 	const handleChange = useCallback(
@@ -62,6 +79,27 @@ function CreateTutorials() {
 		},
 		[tutorial, setTutorial]
 	)
+
+	const initialEditorState = useMemo(() => EditorState.createEmpty(), [])
+
+	const [editorState, setEditorState] = useState(() => ({
+		theory: initialEditorState,
+		code: initialEditorState,
+		input: initialEditorState,
+		output: initialEditorState
+	}))
+
+	const handleEditorChange = (state, editorName) => {
+		setEditorState({ ...editorState, [editorName]: state })
+		convertContentToHTML(editorName)
+	}
+	const convertContentToHTML = (editorName) => {
+		setTutorial({
+			...tutorial,
+			[editorName]: convertToHTML(editorState[editorName].getCurrentContent())
+		})
+	}
+
 	return (
 		<div className='admin__content'>
 			<h1>Create a Tutorial</h1>
@@ -92,26 +130,39 @@ function CreateTutorials() {
 						/>
 					)}
 				/>
-				<label htmlFor={'theory'}>Theory</label>
-				<TextareaAutosize
-					placeholder='Theory'
-					className='inputs'
-					rowsMin={6}
-					type='text'
-					name='theory'
-					onChange={handleChange}
-					id='theory'
+				<label>Theory</label>
+				<Editor
+					editorState={editorState.theory}
+					onEditorStateChange={(state) => handleEditorChange(state, 'theory')}
+					wrapperClassName='wrapper-class'
+					editorClassName='editor-class'
+					toolbarClassName='toolbar'
 				/>
 
-				<label htmlFor={'code'}>Code</label>
-				<TextareaAutosize
-					placeholder='Code'
-					className='inputs'
-					rowsMin={6}
-					type='text'
-					onChange={handleChange}
-					name='code'
-					id='code'
+				<label>Code</label>
+				<Editor
+					editorState={editorState.code}
+					onEditorStateChange={(state) => handleEditorChange(state, 'code')}
+					wrapperClassName='wrapper-class'
+					editorClassName='editor-code-class'
+					toolbarClassName='toolbar'
+				/>
+				<h3>Testcase Details : </h3>
+				<label>Input</label>
+				<Editor
+					editorState={editorState.input}
+					onEditorStateChange={(state) => handleEditorChange(state, 'input')}
+					wrapperClassName='wrapper-class'
+					editorClassName='editor-input-class'
+					toolbarClassName='toolbar'
+				/>
+				<label>Output</label>
+				<Editor
+					editorState={editorState.output}
+					onEditorStateChange={(state) => handleEditorChange(state, 'output')}
+					wrapperClassName='wrapper-class'
+					editorClassName='editor-input-class'
+					toolbarClassName='toolbar'
 				/>
 				<Button
 					onClick={issueAddition}
@@ -120,6 +171,7 @@ function CreateTutorials() {
 					Submit Tutorial
 				</Button>
 			</div>
+			<ToastContainer />
 		</div>
 	)
 }

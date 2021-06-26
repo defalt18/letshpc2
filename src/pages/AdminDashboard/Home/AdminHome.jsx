@@ -1,7 +1,13 @@
 import React from 'react'
 import _map from 'lodash/map'
+import { useAsync } from 'react-use'
+import { fetchAllTutorials } from '../../../services/services'
+import { fetchAllUsers } from '../../../services/admin-services'
 
 function AdminHome({ user }) {
+	const { value: response } = useAsync(() => fetchAllTutorials())
+	const { value: userResponse } = useAsync(() => fetchAllUsers())
+
 	return (
 		<div className='admin__content'>
 			<h1>
@@ -10,11 +16,11 @@ function AdminHome({ user }) {
 			<div className='stats'>
 				<div className='stat__boxes'>
 					<p>Total students signed up </p>
-					<h1>22</h1>
+					<h1>{userResponse?.data.users.length}</h1>
 				</div>
 				<div className='stat__boxes'>
 					<p>Total tutorials</p>
-					<h1>54</h1>
+					<h1>{response?.data.tutorials.length}</h1>
 				</div>
 			</div>
 			<h2 style={{ marginBottom: 30 }}>Student Doubts</h2>

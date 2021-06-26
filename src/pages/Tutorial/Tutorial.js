@@ -29,7 +29,7 @@ function Tutorial(props) {
 
 	const { state = { details: null } } = props.location
 	const tutorialDetails = JSON.parse(state.details)
-	const { _id, code, theory, testcases, title, level } =
+	const { code, theory, testcases, title, level } =
 		tutorialDetails || Tutorial_Default
 
 	const [complete, setComplete] = useState(() =>
@@ -51,6 +51,9 @@ function Tutorial(props) {
 		alert('Tutorial marked as completed')
 	}, [user, tutorialDetails, dispatch])
 
+	const dangerousElement = (string = '', props) => (
+		<span dangerouslySetInnerHTML={{ __html: `${string} ${props}` }}></span>
+	)
 	return (
 		<div className='tutorials__page'>
 			<div className='tut__head'>
@@ -68,7 +71,7 @@ function Tutorial(props) {
 					label={level[0].toUpperCase() + level.slice(1)}
 					style={{ color: chipColor[level], borderColor: chipColor[level] }}
 				/>
-				{_id ? (
+				{user ? (
 					!complete ? (
 						<Tooltip title='Mark as completed'>
 							<IconButton
@@ -92,10 +95,10 @@ function Tutorial(props) {
 			<div className='content__window'>
 				<h1># {title}</h1>
 				<div className='topic__desc'>
-					{theory}
-					<br />
-					<br />
-					{theory}
+					{/*<p dangerouslySetInnerHTML={{ __html: `${theory}` }}></p>*/}
+					{dangerousElement(theory)}
+					{/*<br />*/}
+					{/*<br />*/}
 				</div>
 				<div className='codeboxes'>
 					<div className='samp'>
@@ -127,7 +130,8 @@ function Tutorial(props) {
 							</Button>
 						</ButtonGroup>
 					</div>
-					{code}
+					{/*<p dangerouslySetInnerHTML={{ __html: `${code}` }}>{code}</p>*/}
+					{dangerousElement(code)}
 				</div>
 				<div
 					id='output'
@@ -138,14 +142,12 @@ function Tutorial(props) {
 					{testcases &&
 						testcases.map((item) => (
 							<>
-								<p>Input : {item.input}</p>
-								<p>Output : {item.output}</p>
+								{dangerousElement('Input', item.input)}
+								{dangerousElement('Output', item.output)}
 							</>
 						))}
 				</div>
-				<div className='topic__desc'>
-					<p>{theory}</p>
-				</div>
+				<div className='topic__desc'></div>
 			</div>
 		</div>
 	)

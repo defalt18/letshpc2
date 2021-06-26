@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema(
 		},
 		role: {
 			type: String,
-			enum: ['Student', 'Professor'],
+			enum: ['Student', 'Professor', 'TA'],
 			default: 'Student'
 		},
 		savedTutorials: [

@@ -84,7 +84,11 @@ function DashboardTutorials({ user }) {
 									Mark as Read
 								</p>
 							</div>
-							<p>{tutorial?.theory.slice(0, 200)}...</p>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: `${tutorial?.theory.slice(0, 200)}...`
+								}}
+							/>
 						</div>
 					))
 				) : (
@@ -150,7 +154,11 @@ function DashboardTutorials({ user }) {
 									}}
 								/>
 							</div>
-							<p>{tutorial?.theory.slice(0, 200)}...</p>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: `${tutorial?.theory.slice(0, 200)}...`
+								}}
+							/>
 							<p>
 								<span style={{ color: 'lightgreen' }}>Completed on</span> :{' '}
 								{Date(time)}

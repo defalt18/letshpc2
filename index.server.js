@@ -47,10 +47,6 @@ app.use("/api", tutorialRoutes);
 //     });
 // });
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../../build"));
-}
-
 // for error
 app.use((req, res, next) => {
     const error = new Error("Not Found");
@@ -72,9 +68,7 @@ app.use((error, req, res, next) => {
 if (process.env.NODE_ENV == "production") {
     app.use(express.static("client/build"));
     const path = require("path");
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
+    app.use("*", express.static(path.join(__dirname, "client", "build")));
 }
 
 app.listen(PORT, () => {

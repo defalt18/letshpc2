@@ -5,6 +5,8 @@
 /backend-server/node_modules
 /.pnp
 .pnp.js
+.prettierrc
+.eslintrc.json
 
 # testing
 /coverage

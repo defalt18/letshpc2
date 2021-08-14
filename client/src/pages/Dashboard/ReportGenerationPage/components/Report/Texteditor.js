@@ -1,59 +1,82 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import Quill from 'quill'
-import 'quill/dist/quill.snow.css'
-import './Texteditor.css'
+import React, { useEffect, useState, useRef } from "react";
+
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "./Texteditor.css";
+
+import katex from "katex";
+import "katex/dist/katex.css";
+
+// MathQuill dependency
+import "./jquery";
+import "mathquill/build/mathquill.js";
+import "mathquill/build/mathquill.css";
+
+// mathquill4quill include
+import mathquill4quill from "mathquill4quill";
+import "mathquill4quill/mathquill4quill.css";
+
+window.katex = katex;
+
+const CUSTOM_OPERATORS = [
+    ["\\pm", "\\pm"],
+    ["\\sqrt{x}", "\\sqrt"],
+    ["\\sqrt[3]{x}", "\\sqrt[3]{}"],
+    ["\\sqrt[n]{x}", "\\nthroot"],
+    ["\\frac{x}{y}", "\\frac"],
+    ["\\sum^{s}_{x}{d}", "\\sum"],
+    ["\\prod^{s}_{x}{d}", "\\prod"],
+    ["\\coprod^{s}_{x}{d}", "\\coprod"],
+    ["\\int^{s}_{x}{d}", "\\int"],
+    ["\\binom{n}{k}", "\\binom"],
+];
 
 const TOOLBAR_OPTIONS = [
-	[{ header: [1, 2, 3, 4, 5, 6, false] }],
-	[{ font: [] }],
-	[{ align: [] }],
-	['bold', 'italic', 'underline', 'strike'],
-	[{ color: [] }, { background: [] }],
-	['image', 'blockquote', 'code-block'],
-	[{ list: 'ordered' }, { list: 'bullet' }],
-	[{ script: 'sub' }, { script: 'super' }],
-	[{ indent: '-1' }, { indent: '+1' }],
-	['clean']
-]
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{ font: [] }],
+    [{ align: [] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ color: [] }, { background: [] }],
+    ["image", "blockquote", "code-block"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+    ["clean"],
+    ["formula"],
+];
 
 export default function TextEditor(props) {
-	const { saveReport, initialData } = props
+    const { saveReport, initialData } = props;
+    const reactQuill = useRef();
+    const [text, setText] = useState(initialData);
 
-	const [quill, setQuill] = useState()
+    useEffect(() => {
+        const enableMathQuillFormulaAuthoring = mathquill4quill({
+            Quill,
+            katex,
+        });
+        const displayHistory = false;
+        const operators = CUSTOM_OPERATORS;
+        const options = { displayHistory, operators };
+        enableMathQuillFormulaAuthoring(reactQuill.current.editor, options);
+    }, [reactQuill]);
 
-	const sendData = useCallback(() => {
-		saveReport(quill.getContents())
-	}, [saveReport, quill])
-
-	useEffect(() => {
-		if (quill == null) return
-		if (initialData) {
-			quill.setContents(initialData.ops)
-		} else {
-			quill.setContents([{ insert: '' }])
-		}
-		quill.on('text-change', () => sendData())
-		quill.enable()
-
-		return () => {
-			quill.off('text-change', () => console.log('Quill Says Bye'))
-		}
-	}, [quill, initialData, sendData])
-
-	const wrapperRef = useCallback((wrapper) => {
-		if (wrapper == null) return
-
-		wrapper.innerHTML = ''
-		const editor = document.createElement('div')
-		wrapper.append(editor)
-		const q = new Quill(editor, {
-			theme: 'snow',
-			modules: { toolbar: TOOLBAR_OPTIONS }
-		})
-
-		q.disable()
-		q.setText('Loading...')
-		setQuill(q)
-	}, [])
-	return <div className='container' ref={wrapperRef}></div>
+    return (
+        <ReactQuill
+            ref={reactQuill}
+            id="editor"
+            className="container"
+            modules={{
+                formula: true,
+                toolbar: TOOLBAR_OPTIONS,
+            }}
+            placeholder="Type text here..."
+            theme="snow"
+            value={text}
+            onChange={(value) => {
+                setText(value);
+                saveReport(value);
+            }}
+        />
+    );
 }

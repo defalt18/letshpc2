@@ -43,7 +43,9 @@
         align-self: flex-start;
     }
 
-    .container .ql-toolbar.ql-snow {
+    .container .ql-toolbar.ql-snow,
+    #close_icon__save,
+    #close_icon {
         display: none;
     }
 }

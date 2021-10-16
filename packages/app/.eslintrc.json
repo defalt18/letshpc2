@@ -1,10 +1,11 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
-  "extends": ["react-app", "prettier"],
   "plugins": ["react", "prettier"],
+  "extends": ["plugin:prettier/recommended", "prettier", "react-app"],
   "parserOptions": {
     "ecmaVersion": 2018
   },

@@ -9,7 +9,10 @@ import { setUser } from '../../slices/userSlice'
 function AdminLogin() {
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const [credentials, setCredentials] = useState({ userName: '', password: '' })
+	const [credentials, setCredentials] = useState({
+		userName: '',
+		password: '',
+	})
 
 	const Authorise = useCallback(async () => {
 		const { user, status } = await adminSignIn(credentials)

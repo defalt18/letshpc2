@@ -4,7 +4,6 @@
     "es6": true,
     "node": true
   },
-  "extends": ["react-app", "prettier"],
   "plugins": ["react", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2018
@@ -17,7 +16,7 @@
       ]
     }
   ],
-  "eslint.workingDirectories": ["packages/app", "packages/backend"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
   "rules": {
     "prettier/prettier": [
       "warn",

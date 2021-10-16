@@ -1,23 +1,13 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
-    "node": true
+    "es6": true
   },
   "extends": ["react-app", "prettier"],
   "plugins": ["react", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2018
   },
-  "overrides": [
-    {
-      "files": [
-        "*.jsx",
-        "*.js"
-      ]
-    }
-  ],
-  "eslint.workingDirectories": ["packages/app", "packages/backend"],
   "rules": {
     "prettier/prettier": [
       "warn",

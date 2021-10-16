@@ -9,10 +9,7 @@ import { setUser } from '../../slices/userSlice'
 function AdminLogin() {
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const [credentials, setCredentials] = useState({
-		userName: '',
-		password: ''
-	})
+	const [credentials, setCredentials] = useState({ userName: '', password: '' })
 
 	const Authorise = useCallback(async () => {
 		const { user, status } = await adminSignIn(credentials)
@@ -38,7 +35,7 @@ function AdminLogin() {
 				width: '100%',
 				display: 'flex',
 				alignItems: 'center',
-				justifyContent: 'center'
+				justifyContent: 'center',
 			}}
 		>
 			<IconButton id='home' onClick={() => history.push('/')}>
@@ -52,7 +49,7 @@ function AdminLogin() {
 					flexDirection: 'column',
 					gap: 20,
 					color: 'lightgray',
-					width: '35vw'
+					width: '35vw',
 				}}
 			>
 				<h1 style={{ margin: 'auto' }}>Admin Login</h1>
@@ -78,7 +75,7 @@ function AdminLogin() {
 					onClick={Authorise}
 					style={{
 						color: 'white',
-						backgroundColor: '#2d333b'
+						backgroundColor: '#2d333b',
 					}}
 				>
 					Login

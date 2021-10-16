@@ -1,0 +1,45 @@
+.tutorials__page{
+    min-height: 100vh;
+    width: 100vw;
+    background: #1d2024;
+    color: white;
+    padding-bottom: 50px;
+}
+.tut__head{
+    position: sticky;
+    top: 0;
+    height: 50px;
+    padding: 0 10px;
+    background-color: #22272d;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 5px 0 black;
+    gap: 20px;
+}
+.content__window{
+    background: #22272d;
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+}
+.topic__desc{
+    margin: 20px 0;
+    font-size: large;
+}
+.samp{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.codeboxes{
+    background: #1a1e22;
+    height: auto;
+    width: calc(100% - 20px);
+    color: lightblue;
+    padding: 10px;
+    font-family: "PT Mono";
+    font-size: large;
+    position: relative;
+}

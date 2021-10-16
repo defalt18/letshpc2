@@ -1,0 +1,30 @@
+.toolbar{
+    display: none;
+    visibility: hidden;
+}
+
+.wrapper-class > .toolbar {
+    display: none;
+}
+.editor-class{
+    background-color: #22272d;
+    color: white;
+    padding: 0px 10px;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
+.editor-code-class{
+    background-color: #22272d;
+    color: white;
+    font-family: "PT Mono";
+    padding: 0px 10px;
+    min-height: 200px;
+    border-radius: 5px;
+}
+.editor-input-class{
+    background-color: #22272d;
+    color: white;
+    padding: 0px 10px;
+    border-radius: 5px;
+}

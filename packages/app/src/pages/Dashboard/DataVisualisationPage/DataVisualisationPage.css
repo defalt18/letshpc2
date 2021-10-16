@@ -1,0 +1,35 @@
+.graph-options{
+    background-color: #22272d;
+    padding: 20px;
+    min-height: 70vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.options-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#collectionButton{
+    margin-top: 10px;
+    background-color: rgba(0,150,255,0.2);
+    color: white;
+}
+.graph-area{
+    margin-top: 20px;
+    flex: 1;
+}
+#generate{
+    color: white;
+    margin-left: 10px;
+    padding: 0 20px;
+    background-color: #2d333b;
+}
+.close-modal{
+    color: white;
+}
+.MuiOutlinedInput-notchedOutline{
+    border-color: lightgrey;
+}

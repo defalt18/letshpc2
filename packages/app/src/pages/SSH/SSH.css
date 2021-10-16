@@ -1,0 +1,50 @@
+.intructions{
+    width: 50%;
+}
+.inst{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ssh{
+    width: 50%;
+    position: sticky;
+    top: 0;
+}
+.code{
+    margin: 10px 0;
+    padding: 10px;
+    min-width: 90%;
+    font-size: large;
+    position: relative;
+    overflow: auto;
+    background: rgb(40, 47, 63);
+    color: lightcyan;
+    font-family: monospace;
+}
+.codesss{
+    margin: 10px 0;
+    padding: 10px;
+    max-width: 89%;
+    font-size: large;
+    overflow: auto;
+    background: rgb(40, 47, 63);
+    color: lightcyan;
+    font-family: monospace;
+}
+.intructions > .MuiButton-root {
+    background: yellow;
+}
+.form_details{
+    padding: 20px;
+    min-width: 20vw;
+    background: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    outline: none;
+    border-radius: 10px;
+    align-items: center;
+    gap: 20px;
+}

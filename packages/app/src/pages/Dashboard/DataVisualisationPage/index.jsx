@@ -1,1 +1,1 @@
-export { default } from './DataVisualisationPage'
+export { default } from './DataVisualisationPage';

@@ -3,23 +3,5 @@
     "browser": true,
     "es6": true,
     "node": true
-  },
-  "plugins": ["react", "prettier"],
-  "extends": ["plugin:prettier/recommended", "prettier", "react-app"],
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
-  "rules": {
-    "prettier/prettier": [
-      "warn",
-      {
-        "printWidth": 80,
-        "trailingComma": "es5",
-        "semi": false,
-        "jsxSingleQuote": true,
-        "singleQuote": true,
-        "useTabs": true
-      }
-    ]
   }
 }

@@ -1,1 +1,1 @@
-export { default } from './ReportGenerationPage'
+export { default } from './ReportGenerationPage';

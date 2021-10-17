@@ -18,7 +18,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^3.10.2",
     "lerna": "^4.0.0",
-    "prettier": "^2.4.1",
+    "prettier": "^2.4.1"
   },
   "scripts": {
     "start": "lerna run start",
@@ -28,14 +28,5 @@
   },
   "workspaces": [
     "packages/*"
-  ],
-  "lint-staged": {
-    "*.+(js|jsx|ts|tsx)": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.+(json|css|md|mjml|graphql)": [
-      "prettier --write"
-    ]
-  }
+  ]
 }
